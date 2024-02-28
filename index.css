@@ -164,6 +164,7 @@ code {
 
 .home-content a {
   width: 100%;
+  max-width: 500px;
   color: white;
   background-color: #dc6a19;
 }
