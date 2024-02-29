@@ -1,3 +1,19 @@
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+
+  white-space: nowrap;
+
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -24,9 +40,14 @@ code {
   padding-right: 26px;
 }
 
+.title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
 .link-button {
   display: inline-block;
-  padding: 12px 22px;
+  padding: 10px 20px;
   /* padding-block: .75rem; */
   font-weight: 700;
   text-align: center;
@@ -42,6 +63,23 @@ code {
   transform: translate(3px, 3px);
 }
 
+.underlined {
+  position: relative;
+
+  padding-bottom: 2px;
+}
+
+.underlined::before {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 1px;
+}
+
+/* PAGE HEADER */
+
 .page-header {
   width: 100%;
   box-sizing: border-box;
@@ -50,6 +88,7 @@ code {
 
 .nav {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
@@ -60,28 +99,29 @@ code {
 }
 
 .nav a {
+  /*
   padding: 3px 3px 4px 3px;
   padding-bottom: 4px;
+  */
   box-sizing: border-box;
   text-decoration: none;
   color: #090909;
-  font-weight: 600;
   transition: transform .2s ease-in-out;
-
 }
 
 .nav a:hover,
 .nav a:focus {
   border-radius: 5px;
-  background-color: #aaebe8; /* #FF8C38; */
+  background-color: #c8f3ea; /* #FF8C38; */
 }
-
+/*#c8f3ef*/
 .nav a:active {
-  transform: scale(0.8);
+  transform: scale(0.9);
 }
 
 .nav__logo-text {
   color: black;
+  margin-right: 25px;
   /* margin-right: auto; */
   text-transform: uppercase;
   font-weight: 900;
@@ -89,10 +129,15 @@ code {
 }
 
 .nav__breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   box-sizing: border-box;
   list-style: none;
   margin: 0;
   padding: 0;
+
+  font-size: 16px;
 }
 
 /*
@@ -103,16 +148,23 @@ code {
 */
 
 .nav__breadcrumb {
-  margin: 0;
+  margin: 5px 0 5px 0;
+  /* margin-left: 13px; */
+  margin-right: 25px;
   padding: 0;
   box-sizing: border-box;
+  
   color: #4D4D4D;
+  font-weight: 600;
+}
+
+.nav__breadcrumb:last-child {
+  margin-right: 0;
 }
 
 .nav__breadcrumb-link {
-  position: relative;
+  /* position: relative; */
   margin: 0;
-  margin-left: 13px;
   /*
   padding: 3px 3px 4px 3px;
   padding-bottom: 4px;
@@ -122,7 +174,7 @@ code {
 }
 
 .nav__breadcrumb-link:active {
-  transform: scale(0.8);
+  transform: scale(0.9);
 }
 
 .nav__breadcrumb-link--active {
@@ -130,12 +182,14 @@ code {
 }
 
 .nav__breadcrumb-link--active::before {
+  /*
   content: "";
   position: absolute;
   bottom: 0px;
   left: 0px;
   width: 100%;
   height: 2px;
+  */
   background-color: black;
 }
 
@@ -204,15 +258,13 @@ code {
   margin-top: 49px;
   margin-bottom: 31px;
   padding: 0;
-  font-size: 32px;
-  font-weight: bold;
 }
 
 .about-content__text {
   margin: 0 auto;
   margin-bottom: 20px;
   line-height: 1.25;
-  font-weight: medium;
+  font-weight: 500;
 }
 
 .promo-block {
@@ -240,3 +292,179 @@ code {
   transform: translate(3px, 3px);
   background-color: #174955;
 }
+
+/* VANS list */
+.vans-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vans-filter__checkboxes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;background-color: rgb(235, 189, 204);
+}
+
+.vans-filter__checkbox {
+  margin: 6px 25px 6px 0;
+}
+
+.vans-filter__checkbox-label {
+  display: block;
+  padding: 6px 26px 7px 26px;
+
+  color: #222222;
+
+  background-color: #FFEAD0;
+  border-radius: 5px;
+}
+
+.vans-filter__checkbox-label:hover {
+  background-color: #f9d6ac;
+}
+
+.vans-filter__checkbox-input:focus + .vans-filter__checkbox-label {
+  background-color: #f9d6ac;
+}
+
+.vans-filter__checkbox-input:checked + .vans-filter__checkbox-label {
+  box-shadow: 0 0 0 2px #125363;
+}
+
+.vans-filter__reset-btn {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 6px 0 6px 0;
+  box-sizing: border-box;
+
+  color: #4D4D4D;
+  font-size: 16px;
+  font-weight: 500;
+
+  border: none;
+
+  transition: transform .2s ease-in-out;
+}
+
+.vans-filter__reset-btn::before {
+  background-color: #4D4D4D;
+}
+
+.vans-filter__reset-btn:hover,
+.vans-filter__reset-btn:focus {
+  background-color: #c8f3ea;
+}
+
+.vans-filter__reset-btn:active {
+  transform: scale(0.9);
+}
+
+.vans__list {
+  margin-top: 56px;
+  margin-bottom: 56px;
+}
+
+.vans-list {
+  list-style: none;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vans-list__item {
+  /*
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  */
+  margin: 0;
+  margin-bottom: 26px;
+  padding: 0;
+}
+
+.vans-list__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (min-width: 520px) {
+  .vans-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .vans-list__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: flex-start; */
+    flex-basis: 47%;
+    height: auto;
+    background-color: #98c5d1;
+  }
+}
+
+@media (min-width: 768px) {
+  .vans-list__item {
+    flex-basis: 31%;
+    height: auto;
+  }
+}
+
+.vans-list__item-info {background-color: lightcoral;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 0;/*17px;*/
+  margin-top: 10px;
+}
+
+.vans-list__item-title {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.vans-list__item-price {
+  display: block;
+  position: relative;
+  padding-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.vans-list__item-price span {
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.vans-list__item-btn {
+  margin-top: auto;
+  color: #fef8f7;
+}
+
+.vans-list__item-btn--simple {
+  background-color: #dc6a19;
+}
+
+.vans-list__item-btn--rugged {
+  background-color: #115E59;
+}
+
+.vans-list__item-btn--luxury {
+  background-color: #161616;
+}
+
+
