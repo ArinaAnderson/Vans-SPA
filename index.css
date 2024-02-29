@@ -294,6 +294,16 @@ code {
 }
 
 /* VANS list */
+.vans {
+  padding-top: 53px;
+  padding-bottom: 53px;
+}
+
+.vans__title title {
+  margin-top: 0;
+  padding: 0;
+}
+
 .vans-filter {
   display: flex;
   flex-wrap: wrap;
