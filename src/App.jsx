@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
+import Vans from './pages/Vans.jsx';
 import Footer from './components/Footer.jsx';
 
 /*
@@ -38,12 +39,16 @@ const App = () => {
             <li className="nav__breadcrumb nav__breadcrumb--active">
               <Link className="nav__breadcrumb-link nav__breadcrumb-link--active" to="/about">About</Link>
             </li>
+            <li className="nav__breadcrumb nav__breadcrumb--active">
+              <Link className="nav__breadcrumb-link nav__breadcrumb-link--active underlined" to="/vans">Vans</Link>
+            </li>
           </ul>
         </nav>
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
+        <Route path="/vans" element={<Vans />} />
       </Routes>
       <Footer />
   </BrowserRouter>
