@@ -9,7 +9,7 @@ const About = () => {
         <div className="about-content__img-box">
           <img src={bgImg} className="about-content__img" />
         </div>
-        <h1 className="about-content__title">You got the travel plans, we got the travel vans</h1>
+        <h1 className="about-content__title title">You got the travel plans, we got the travel vans</h1>
         <p className="about-content__text">
           Our mission is to enliven your road trip with the perfect travel van rental.
           Our vans are recertified before each trip to ensure your travel plans can go off without a hitch. (Hitch costs extra 😉)
