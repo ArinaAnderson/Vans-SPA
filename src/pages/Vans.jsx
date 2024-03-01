@@ -47,19 +47,25 @@ const Vans = () => {
               const { id, name, price, type, description, imageUrl } = van;
               return (
                 <li className="vans-list__item" key={id}>
-                  <div className="vans-list__img-box">
-                    <img className="vans-list__img" src={imageUrl} width="" height="" />
-                  </div>
-                  <div className="vans-list__wrap">
-                    <div className="vans-list__item-info">
-                      <span className="vans-list__item-title">{name}</span>
-                      <span className="vans-list__item-price">
-                        {`$${price}`}
-                        <span>/day</span>
-                      </span>
+                  <Link
+                    className={`vans-list__wrap-link vans-list__wrap-link--${id%2}`}
+                    to={`/vans/${id}`}
+                    aria-label={`View details for ${name}, priced at $${price} per day`}
+                  >
+                    <div className="vans-list__img-box">
+                      <img className="vans-list__img" src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
                     </div>
-                    <Link className={`link-button vans-list__item-btn vans-list__item-btn--${type}`} to={`/vans/${id}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</Link>
-                  </div>
+                    <div className="vans-list__wrap">
+                      <div className="vans-list__item-info">
+                        <span className="vans-list__item-title">{name}</span>
+                        <span className="vans-list__item-price">
+                          {`$${price}`}
+                          <span>/day</span>
+                        </span>
+                      </div>
+                      <span className={`link-button vans-list__item-btn vans-list__item-btn--${type}`} to={`/vans/${id}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</span>
+                    </div>
+                  </Link>
                 </li>
               );
             })}
@@ -74,3 +80,6 @@ const Vans = () => {
 export default Vans;
 
 // <Link className="link-button" to="/vans">Find your van</Link>
+
+//                       <Link className={`link-button vans-list__item-btn vans-list__item-btn--${type}`} to={`/vans/${id}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</Link>
+
