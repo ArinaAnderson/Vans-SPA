@@ -373,6 +373,40 @@ code {
   transform: scale(0.9);
 }
 
+.vans-list__wrap-link {
+  display: block;
+  /*
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  */
+  transition: transform .3s ease-in-out;
+}
+
+.vans-list__wrap-link--0:hover,
+.vans-list__wrap-link--0:focus {
+  transform: rotate(4deg);
+}
+
+.vans-list__wrap-link--1:hover,
+.vans-list__wrap-link--1:focus {
+  transform: rotate(-4deg);
+}
+
+.vans-list__img-box {
+  transition: transform .3s ease-in-out;
+}
+
+.vans-list__img-box:hover,
+.vans-list__img-box:focus {
+  transform: translate(3px, 3px);
+}
+
+.vans-list__item-info:hover,
+.vans-list__item-info:focus {
+  transform: translate(-3px, -3px);
+}
+ 
 .vans__list {
   margin-top: 56px;
   margin-bottom: 56px;
@@ -386,12 +420,6 @@ code {
 }
 
 .vans-list__item {
-  /*
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  */
   margin: 0;
   margin-bottom: 26px;
   padding: 0;
@@ -412,14 +440,31 @@ code {
   }
 
   .vans-list__item {
+    /*
     display: flex;
+    align-items: stretch;
     flex-direction: column;
     justify-content: space-between;
+    */
     /* align-items: flex-start; */
     flex-basis: 47%;
     height: auto;
     background-color: #98c5d1;
   }
+
+  .vans-list__wrap-link {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  /*
+  .vans-list__wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  */
 }
 
 @media (min-width: 768px) {
@@ -432,23 +477,29 @@ code {
 .vans-list__item-info {background-color: lightcoral;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 0;/*17px;*/
   margin-top: 10px;
+  transition: transform .3s ease-in-out;
 }
 
 .vans-list__item-title {
   display: block;
+  margin-bottom: 5px;
   font-size: 20px;
   font-weight: 600;
+  color:#161616;
 }
 
 .vans-list__item-price {
   display: block;
   position: relative;
   padding-bottom: 15px;
+  margin-bottom: 5px;
   font-size: 20px;
   font-weight: 600;
+  color:#161616;
 }
 
 .vans-list__item-price span {
