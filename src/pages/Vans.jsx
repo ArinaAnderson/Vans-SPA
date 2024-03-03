@@ -28,15 +28,15 @@ const Vans = () => {
           <div className="vans-filter__checkboxes">
             <div className="vans-filter__checkbox">
               <input className="vans-filter__checkbox-input visually-hidden" type="checkbox" id="simple-vans" value="simple" />
-              <label className="vans-filter__checkbox-label" htmlFor="simple-vans">Simple</label>
+              <label className="vans-filter__checkbox-label vans-filter__checkbox-label--simple" htmlFor="simple-vans">Simple</label>
             </div>
             <div className="vans-filter__checkbox">
               <input className="vans-filter__checkbox-input visually-hidden" type="checkbox" id="luxury-vans" value="luxury" />
-              <label className="vans-filter__checkbox-label" htmlFor="luxury-vans">Luxury</label>
+              <label className="vans-filter__checkbox-label vans-filter__checkbox-label--luxury" htmlFor="luxury-vans">Luxury</label>
             </div>
             <div className="vans-filter__checkbox">
               <input className="vans-filter__checkbox-input visually-hidden" type="checkbox" id="rugged-vans" value="rugged" />
-              <label className="vans-filter__checkbox-label" htmlFor="rugged-vans">Rugged</label>
+              <label className="vans-filter__checkbox-label vans-filter__checkbox-label--rugged" htmlFor="rugged-vans">Rugged</label>
             </div>
           </div>
           <button className="vans-filter__reset-btn underlined" type="button">Clear filters</button>
@@ -53,7 +53,7 @@ const Vans = () => {
                     aria-label={`View details for ${name}, priced at $${price} per day`}
                   >
                     <div className="vans-list__img-box">
-                      <img className="vans-list__img" src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
+                      <img className="vans-list__img van__img" src={imageUrl} width="" height="" alt={`Image of ${name}`} />
                     </div>
                     <div className="vans-list__wrap">
                       <div className="vans-list__item-info">
@@ -63,7 +63,7 @@ const Vans = () => {
                           <span>/day</span>
                         </span>
                       </div>
-                      <span className={`link-button vans-list__item-btn vans-list__item-btn--${type}`} to={`/vans/${id}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</span>
+                      <span className={`btn link-button vans-list__item-btn van-type van-type--${type}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</span>
                     </div>
                   </Link>
                 </li>
