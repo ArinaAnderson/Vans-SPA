@@ -1,31 +1,75 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useEffect} from 'react';
+import { Link, useParams } from "react-router-dom";
 import axios from 'axios';
 
 const Vans = () => {
-  /*
-  const vansList = [
-    { id: "1", name: "Modest Explorer", price: 60, description: "The Modest Explorer is a van designed to get you out of the house and into nature. This beauty is equipped with solar panels, a composting toilet, a water tank and kitchenette. The idea is that you can pack up your home and escape for a weekend or even longer!", imageUrl: "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png", type: "simple" },
-    { id: "2", name: "Beach Bum", price: 80, description: "Beach Bum is a van inspired by surfers and travelers. It was created to be a portable home away from home, but with some cool features in it you won't find in an ordinary camper.", imageUrl: "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png", type: "rugged" },
-    { id: "3", name: "Beach Bum", price: 80, description: "Beach Bum is a van inspired by surfers and travelers. It was created to be a portable home away from home, but with some cool features in it you won't find in an ordinary camper.", imageUrl: "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png", type: "rugged" },
-  ];
-  */
+  const [vanData, setVanData] = useState(null); 
+  const [error, setError] = useState(null);
+  // const [requestStatus, setRequestStatus]
 
-  const [vansList, setVansList] = useState([]); 
-  
-  
-  
-  return (
-    <main className="vans">
-      <div className="center">
-        <h1 className="vans__title title">Van Details</h1>
-        
-      </div>
-    </main>
-    
-  );
+  const params = useParams();
+
+  useEffect(() => {
+    axios.get(`/api/vans/${params.id}`)
+      .then((response) => response.data)
+      .then((payload) => setVanData(payload.vans))
+      .then(() => console.log(vanData))
+      .catch((e) => setError(e))
+  }, [params.id]);
+
+  const renderOutput = () => {
+    if (vanData === null) {
+      return (<h2>Loading...</h2>);
+    }
+    const { type, name, id, imageUrl, description, price } = vanData;
+
+    return (
+      <main className="van">
+        <div className="center">
+          <Link className="van__back-link underlined" to='/vans'>Back to all vans</Link>
+          <div className="van__wrap">
+            <div className="van__img-box">
+              <img className="van__img"  src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
+            </div>
+            <div className="van__info-wrap">
+              <span className={`btn van-type van-type--${type}`}>
+                {`${vanData.type[0].toUpperCase()}${vanData.type.substring(1)}`}
+              </span>
+              <h2 className="van__title">{name}</h2>
+              <p className="van__price-box"><span className="van__price">{`$${price}`}</span>/day</p>
+            </div>
+          </div>
+          <p className="van__description">{description}</p>
+          <Link className="link-button btn van__rent-link">Rent this van</Link>
+        </div>
+      </main>
+    );
+  }
+
+  return renderOutput();
 };
 // className="btn btn--orange"
 export default Vans;
 
-// <Link className="link-button" to="/vans">Find your van</Link>
+/*
+<main className="van">
+        <div className="center">
+          <div className="van__wrap">
+            <div className="van__img-box">
+              <img className="van__img"  src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
+            </div>
+            
+            <span className={`btn van-type van-type--${type}`}>
+            {`${vanData.type[0].toUpperCase()}${vanData.type.substring(1)}`}
+            </span>
+
+            <h2 className="van__title">{name}</h2>
+            <p className="van__price-box"><span className="van__price">{`$${price}`}</span>/day</p>
+            <p className="van__description">{description}</p>
+            <Link className="link-button btn van__rent-link">Rent this van</Link>
+          </div>
+        </div>
+      </main>
+*/
+
+
