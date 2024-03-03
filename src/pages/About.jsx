@@ -20,7 +20,7 @@ const About = () => {
         <div className="promo-block">
           <p className="promo-block__text">Your destination is waiting.</p>
           <p className="promo-block__text">Your van is ready.</p>
-          <Link className="link-button" to="/vans">
+          <Link className="btn link-button" to="/vans">
             Explore our vans
           </Link>
         </div>
