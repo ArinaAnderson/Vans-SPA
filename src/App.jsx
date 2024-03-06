@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Layout from './components/Layout.jsx';
+
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Vans from './pages/Vans.jsx';
 import VanDetail from './pages/VanDetail.jsx';
+
+import HostLayout from './pages/Host/HostLayout.jsx';
+import Dashboard from './pages/Host/Dashboard.jsx';
+import Income from './pages/Host/Income.jsx';
+import Reviews from './pages/Host/Reviews.jsx';
+
 import Footer from './components/Footer.jsx';
 
 /*
@@ -30,27 +38,19 @@ const handleLinkClick = (e) => {
 const App = () => {
   return (
     <BrowserRouter>
-      <header className="page-header">
-        <nav className="nav center">
-          <Link to="/" className="nav__logo-box nav__logo-text">
-            #VANLIFE
-          </Link>
-          
-          <ul className="nav__breadcrumbs">
-            <li className="nav__breadcrumb nav__breadcrumb--active">
-              <Link className="nav__breadcrumb-link nav__breadcrumb-link--active" to="/about">About</Link>
-            </li>
-            <li className="nav__breadcrumb nav__breadcrumb--active">
-              <Link className="nav__breadcrumb-link nav__breadcrumb-link--active underlined" to="/vans">Vans</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/vans" element={<Vans />} />
-        <Route path="/vans/:id" element={<VanDetail />} />
+        <Route element={<Layout />}>
+          <Route element={<HostLayout />}>
+            <Route path="/host" element={<Dashboard />} />
+            <Route path="/host/income" element={<Income />} />
+            <Route path="/host/reviews" element={<Reviews />} />
+          </Route>
+          
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/vans" element={<Vans />} />
+          <Route path="/vans/:id" element={<VanDetail />} />
+        </Route>
       </Routes>
       <Footer />
   </BrowserRouter>
