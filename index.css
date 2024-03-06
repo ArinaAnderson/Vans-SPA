@@ -204,6 +204,7 @@ code {
   min-height: calc(100vh - 290px);
   padding-top: 65px;
   padding-bottom: 65px;
+  box-sizing: border-box;
   color: #fff;
   background-color: #3a3230;
   background-image: url("./assets/images/home-hero.png");
@@ -226,6 +227,7 @@ code {
 .home-content a {
   width: 100%;
   max-width: 500px;
+  box-sizing: border-box;
   color: white;
   background-color: #dc6a19;
 }
@@ -359,7 +361,7 @@ code {
 }
 
 .vans-filter__checkbox-input:checked + .vans-filter__checkbox-label {
-  box-shadow: 0 0 0 2px #d79bcc;
+  box-shadow: 0 0 0 3px #eb2b88;
 }
 
 .vans-filter__reset-btn {
@@ -400,6 +402,7 @@ code {
   flex-direction: column;
   justify-content: space-between;
   */
+  text-decoration: none;
   transition: transform .3s ease-in-out;
 }
 
@@ -442,7 +445,7 @@ code {
 .vans-list__item {
   margin: 0;
   margin-bottom: 26px;
-  padding: 0;
+  padding: 0;background-color: #174955;
 }
 
 @media (min-width: 520px) {
@@ -461,17 +464,18 @@ code {
     justify-content: space-between;
     */
     /* align-items: flex-start; */
+    /* display: flex; */
     flex-basis: 47%;
     height: auto;
     /* background-color: #98c5d1; */
   }
 
   .vans-list__wrap-link {
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+
   /*
   .vans-list__wrap {
     display: flex;
@@ -495,15 +499,19 @@ code {
   justify-content: space-between;
   margin-bottom: 0;/*17px;*/
   margin-top: 10px;
+  text-decoration: none;
   transition: transform .3s ease-in-out;
 }
 
 .vans-list__item-title {
   display: block;
   margin-bottom: 5px;
+  margin-right: 10px;
+  box-sizing: border-box;
   font-size: 20px;
   font-weight: 600;
   color:#161616;
+  text-decoration: none;
 }
 
 .vans-list__item-price {
@@ -514,6 +522,7 @@ code {
   font-size: 20px;
   font-weight: 600;
   color:#161616;
+  text-decoration: none;
 }
 
 .vans-list__item-price span {
@@ -523,6 +532,7 @@ code {
   bottom: 0;
   font-size: 14px;
   font-weight: 500;
+  text-decoration: none;
 }
 
 .van-type {
@@ -723,4 +733,44 @@ code {
     margin-left: auto;
     margin-right: auto;
   }
+}
+
+/* HostLayout */
+.host-nav {
+  margin: 26px 0 37px 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  display: flex;
+}
+
+.host-nav li {
+  margin: 7px 29px 8px 0;
+}
+
+.host-nav__link {
+  display: inline-block;
+  text-decoration: none;
+  color: #262626;
+  font-weight: 500;
+
+  transition: transform .2s ease-in-out;
+}
+
+.host-nav__link--active {
+  font-weight: 700;
+}
+
+.host-nav__link:hover::before,
+.host-nav__link:focus::before {
+  background-color: #161616;
+}
+
+.host-nav__link:hover,
+.host-nav__link:focus {
+  transform: scale(1.2);
+}
+
+.host-nav__link:active {
+  transform: scale(0.9);
 }
