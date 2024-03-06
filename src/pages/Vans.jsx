@@ -81,5 +81,27 @@ export default Vans;
 
 // <Link className="link-button" to="/vans">Find your van</Link>
 
-//                       <Link className={`link-button vans-list__item-btn vans-list__item-btn--${type}`} to={`/vans/${id}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</Link>
+// <Link className={`link-button vans-list__item-btn vans-list__item-btn--${type}`} to={`/vans/${id}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</Link>
 
+
+/*
+ <Link
+  className={`vans-list__wrap-link vans-list__wrap-link--${id%2}`}
+  to={`/vans/${id}`}
+  aria-label={`View details for ${name}, priced at $${price} per day`}
+>
+  <div className="vans-list__img-box">
+    <img className="vans-list__img van__img" src={imageUrl} width="" height="" alt={`Image of ${name}`} />
+  </div>
+  <div className="vans-list__wrap">
+    <div className="vans-list__item-info">
+      <span className="vans-list__item-title">{name}</span>
+      <span className="vans-list__item-price">
+        {`$${price}`}
+        <span>/day</span>
+      </span>
+    </div>
+    <span className={`btn link-button vans-list__item-btn van-type van-type--${type}`}>{`${type[0].toUpperCase()}${type.substring(1)}`}</span>
+  </div>
+</Link>
+*/
