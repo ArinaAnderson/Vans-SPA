@@ -1,21 +1,43 @@
 import React, { useState, useEffect} from 'react';
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 
 const HostLayout = () => {
+  const baseStyles = "host-nav__link underlined";
   return (
     <div className="center">
       <ul className="host-nav">
         <li className="">
-          <Link to="/host" className="host-nav__link host-nav__link--active underlined">Dashboard</Link>
+          <NavLink
+            to="/host"
+            end
+            className={({ isActive }) => isActive ? `${baseStyles} host-nav__link--active` : baseStyles}
+          >
+            Dashboard
+          </NavLink>
         </li>
         <li className="">
-          <Link to="/host/income" className="host-nav__link  underlined">Income</Link>
+          <NavLink
+            to="/host/income"
+            className={({ isActive }) => isActive ? `${baseStyles} host-nav__link--active` : baseStyles}
+          >
+            Income
+          </NavLink>
         </li>
         <li className="">
-          <Link to="../vans" className="host-nav__link underlined">Vans</Link>
+          <NavLink
+            to="../vans" 
+            className={({ isActive }) => isActive ? `${baseStyles} host-nav__link--active` : baseStyles}
+          >
+              Vans
+          </NavLink>
         </li>
         <li className="">
-          <Link to="/host/reviews" className="host-nav__link underlined">Reviews</Link>
+          <NavLink
+            to="/host/reviews"
+            className={({ isActive }) => isActive ? `${baseStyles} host-nav__link--active` : baseStyles}
+          >
+              Reviews
+          </NavLink>
         </li>
       </ul>
       <Outlet />
