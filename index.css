@@ -101,8 +101,8 @@ code {
   box-sizing: border-box;
   /* background-color: lavenderblush; */
   margin: 0 auto;
-  padding-top: 35px;
-  padding-bottom: 35px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .nav a {
@@ -112,16 +112,19 @@ code {
   */
   box-sizing: border-box;
   text-decoration: none;
-  color: #090909;
   transition: transform .2s ease-in-out;
 }
 
 .nav a:hover,
 .nav a:focus {
+  transform: scale(1.2);
+  /*
+  color: #ffffff;
   border-radius: 5px;
-  background-color: #c8f3ea; /* #FF8C38; */
+  background-color: #dc6a19; /*#c8f3ea; #FF8C38;
+  */
 }
-/*#c8f3ef*/
+
 .nav a:active {
   transform: scale(0.9);
 }
@@ -133,6 +136,7 @@ code {
   text-transform: uppercase;
   font-weight: 900;
   font-size: 25px;
+  color: #090909;
 }
 
 .nav__breadcrumbs {
@@ -157,16 +161,28 @@ code {
 .nav__breadcrumb {
   margin: 5px 0 5px 0;
   /* margin-left: 13px; */
-  margin-right: 25px;
-  padding: 0;
+  margin-right: 20px;
+  padding: 5px;
   box-sizing: border-box;
   
   color: #4D4D4D;
   font-weight: 600;
+
+  transition: transform .2s ease-in-out;
 }
 
 .nav__breadcrumb:last-child {
   margin-right: 0;
+}
+
+.nav__breadcrumb:hover,
+.nav__breadcrumb:focus {
+  transform: scale(1.2);
+  background-color: #afeeea;
+}
+
+.nav__breadcrumb:active {
+  transform: scale(0.9);
 }
 
 .nav__breadcrumb-link {
@@ -177,7 +193,14 @@ code {
   padding-bottom: 4px;
   */
   box-sizing: border-box;
-  color: #4D4D4D;
+  color: rgb(23, 23, 23);
+
+  transition: transform .2s ease-in-out;
+}
+
+.nav__breadcrumb-link:hover,
+.nav__breadcrumb-link:focus {
+  transform: scale(1.2);
 }
 
 .nav__breadcrumb-link:active {
@@ -185,7 +208,8 @@ code {
 }
 
 .nav__breadcrumb-link--active {
-  color: black;
+  font-weight: 700;
+  color: #bb1d69; /* #eb2b88; */
 }
 
 .nav__breadcrumb-link--active::before {
@@ -197,7 +221,7 @@ code {
   width: 100%;
   height: 2px;
   */
-  background-color: black;
+  background-color: #9e1b5a;
 }
 
 .home-content {
@@ -746,19 +770,21 @@ code {
 
 .host-nav li {
   margin: 7px 29px 8px 0;
+  color: #262626;
+  transition: transform .2s ease-in-out;
 }
 
 .host-nav__link {
   display: inline-block;
   text-decoration: none;
-  color: #262626;
   font-weight: 500;
-
+  color: #262626;
   transition: transform .2s ease-in-out;
 }
 
-.host-nav__link--active {
+.host-nav .host-nav__link--active {
   font-weight: 700;
+  color: #bb1d69;
 }
 
 .host-nav__link:hover::before,
@@ -766,11 +792,16 @@ code {
   background-color: #161616;
 }
 
-.host-nav__link:hover,
-.host-nav__link:focus {
+.host-nav__link--active:hover::before,
+.host-nav__link--active:focus::before {
+  background-color: #9e1b5a;
+}
+
+.host-nav li:hover,
+.host-nav li:focus {
   transform: scale(1.2);
 }
 
-.host-nav__link:active {
+.host-nav li:active {
   transform: scale(0.9);
 }
