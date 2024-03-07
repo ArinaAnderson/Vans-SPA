@@ -13,8 +13,6 @@ import Dashboard from './pages/Host/Dashboard.jsx';
 import Income from './pages/Host/Income.jsx';
 import Reviews from './pages/Host/Reviews.jsx';
 
-import Footer from './components/Footer.jsx';
-
 /*
 const Home = () => {
   return (
@@ -39,20 +37,19 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
-          <Route element={<HostLayout />}>
-            <Route path="/host" element={<Dashboard />} />
-            <Route path="/host/income" element={<Income />} />
-            <Route path="/host/reviews" element={<Reviews />} />
+        <Route path="/" element={<Layout />}>
+          <Route path="host" element={<HostLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="income" element={<Income />} />
+            <Route path="reviews" element={<Reviews />} />
           </Route>
           
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/vans" element={<Vans />} />
-          <Route path="/vans/:id" element={<VanDetail />} />
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="vans" element={<Vans />} />
+          <Route path="vans/:id" element={<VanDetail />} />
         </Route>
       </Routes>
-      <Footer />
   </BrowserRouter>
   );
 };
