@@ -1,7 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 const Header = () => {
+  /*
+  const activeStyle = {
+    fontWeight: "bold",
+    textDecoration: "underline",
+    color: "red"
+  }
+  // alternative to assigning classNames string to className property is
+  // assigning a style object to style property:
+  // style={({isActive}) => isActive ? activeStyle : null }
+  */
+
   return (
     <header className="page-header">
       <nav className="nav center">
@@ -11,13 +22,25 @@ const Header = () => {
         
         <ul className="nav__breadcrumbs">
           <li className="nav__breadcrumb nav__breadcrumb--active">
-            <Link className="nav__breadcrumb-link nav__breadcrumb-link--active" to="/host">Host</Link>
+            <NavLink
+              className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
+              to="/host">
+                Host
+            </NavLink>
           </li>
           <li className="nav__breadcrumb nav__breadcrumb--active">
-            <Link className="nav__breadcrumb-link nav__breadcrumb-link--active" to="/about">About</Link>
+            <NavLink
+              className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
+              to="/about">
+                About
+            </NavLink>
           </li>
           <li className="nav__breadcrumb nav__breadcrumb--active">
-            <Link className="nav__breadcrumb-link nav__breadcrumb-link--active underlined" to="/vans">Vans</Link>
+            <NavLink
+              className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
+              to="/vans">
+                Vans
+            </NavLink>
           </li>
         </ul>
       </nav>
