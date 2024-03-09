@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <header className="page-header">
       <nav className="nav center">
-        <Link to="/" className="nav__logo-box nav__logo-text">
+        <Link to="." className="nav__logo-box nav__logo-text">
           #VANLIFE
         </Link>
         
@@ -24,21 +24,21 @@ const Header = () => {
           <li className="nav__breadcrumb nav__breadcrumb--active">
             <NavLink
               className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
-              to="/host">
+              to="host">
                 Host
             </NavLink>
           </li>
           <li className="nav__breadcrumb nav__breadcrumb--active">
             <NavLink
               className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
-              to="/about">
+              to="about">
                 About
             </NavLink>
           </li>
           <li className="nav__breadcrumb nav__breadcrumb--active">
             <NavLink
               className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
-              to="/vans">
+              to="vans">
                 Vans
             </NavLink>
           </li>
