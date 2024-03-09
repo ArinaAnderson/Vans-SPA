@@ -11,29 +11,18 @@ import VanDetail from './pages/VanDetail.jsx';
 import HostLayout from './pages/Host/HostLayout.jsx';
 import Dashboard from './pages/Host/Dashboard.jsx';
 import Income from './pages/Host/Income.jsx';
+import HostVans from './pages/Host/HostVans.jsx';
+import HostVanDetail from './pages/Host/HostVanDetail.jsx';
 import Reviews from './pages/Host/Reviews.jsx';
 
-/*
-const Home = () => {
-  return (
-    <h1>Privet, Gvenya!</h1>
-  );
-};
-
-const About = () => {
-  return (
-    <h1>This is all about Gvenyusha!</h1>
-  );
-};
-*/
-
-/*
-const handleLinkClick = (e) => {
-  setActiveHeaderLink()
-}
-*/
+import HostVanInfo from './pages/Host/HostVanInfo.jsx';
+import HostVanPricing from './pages/Host/HostVanPricing.jsx';
+import HostVanPhotos from './pages/Host/HostVanPhotos.jsx';
 
 const App = () => {
+  const [currentVan, setCurrentVan] = useState(null);
+  const [currentHostVans, setCurrentHostVans] = useState(null);
+
   return (
     <BrowserRouter>
       <Routes>
@@ -41,6 +30,21 @@ const App = () => {
           <Route path="host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="income" element={<Income />} />
+            <Route
+              path="vans"
+              element={<HostVans currentHostVans={currentHostVans} setCurrentVan={setCurrentVan} setCurrentHostVans={setCurrentHostVans}
+            />} />
+            <Route
+              path="vans/:id"
+              element={<HostVanDetail
+              currentVan={currentVan}
+              currentHostVans={currentHostVans}
+              setCurrentVan={setCurrentVan}
+            />}>
+              <Route index element={<HostVanInfo currentVan={currentVan} />} />
+              <Route path="pricing" element={<HostVanPricing />} />
+              <Route path="photos" element={<HostVanPhotos />} />
+            </Route>  
             <Route path="reviews" element={<Reviews />} />
           </Route>
           
