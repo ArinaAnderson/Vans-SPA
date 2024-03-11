@@ -8,7 +8,6 @@ const HostVanDetail = ({ currentVan, currentHostVans, setCurrentVan}) => {
   const [requetStatus, setRequestStatus] = useState('idle');
 
   const params = useParams();
-  console.log(currentVan);
 
   useEffect(() => {
     if (currentVan) {
@@ -23,7 +22,7 @@ const HostVanDetail = ({ currentVan, currentHostVans, setCurrentVan}) => {
         setRequestStatus('success');
         // setVanData(payload.vans);
         // if (currentVan === null) {
-          setCurrentVan(payload.vans);
+        setCurrentVan(payload.vans);
         // }
       })
       .catch((e) => {

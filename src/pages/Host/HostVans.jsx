@@ -36,6 +36,8 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
     if (requetStatus === 'failure') {
       return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
     }
+
+    // to={`/host/vans/${id}`}
     return (
       <>
         <h1 className="host-vans__subtitle">Your listed vans</h1>
@@ -46,7 +48,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
               <li className="host-vans__item" key={id}>
                 <Link
                   className="host-vans__item-link"
-                  to={`/host/vans/${id}`}
+                  to={`${id}`}
                   onClick={() => setCurrentVan(van)}
                 >
                   <div className="host-vans__item-img-box">
