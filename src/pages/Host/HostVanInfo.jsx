@@ -1,6 +1,8 @@
 import React from 'react';
+import { useOutletContext } from 'react-router-dom';
 
-const HostVanInfo = ({currentVan}) => {
+const HostVanInfo = () => {
+  const [currentVan, setCurrentVan] = useOutletContext();
   const { name, type, description } = currentVan;
   return (
     <div className="host-van__description">

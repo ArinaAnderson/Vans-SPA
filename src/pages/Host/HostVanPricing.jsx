@@ -1,9 +1,11 @@
 import React, { useState, useEffect} from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useOutletContext } from "react-router-dom";
 
-const HostVanPricing = ({ currentVan, setCurrentVan}) => {
+const HostVanPricing = () => {
   const [error, setError] = useState(null);
   const [requetStatus, setRequestStatus] = useState('idle');
+
+  const [currentVan, setCurrentVan] = useOutletContext();
 
   const params = useParams();
   console.log(currentVan);

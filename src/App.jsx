@@ -41,9 +41,9 @@ const App = () => {
               currentHostVans={currentHostVans}
               setCurrentVan={setCurrentVan}
             />}>
-              <Route index element={<HostVanInfo currentVan={currentVan} />} />
-              <Route path="pricing" element={<HostVanPricing currentVan={currentVan} setCurrentVan={setCurrentVan} />} />
-              <Route path="photos" element={<HostVanPhotos currentVan={currentVan} setCurrentVan={setCurrentVan} />} />
+              <Route index element={<HostVanInfo />} />
+              <Route path="pricing" element={<HostVanPricing />} />
+              <Route path="photos" element={<HostVanPhotos />} />
             </Route>
             <Route path="reviews" element={<Reviews />} />
           </Route>
