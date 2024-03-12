@@ -26,7 +26,7 @@ const VanDetail = () => {
     return (
       <main className="van">
         <div className="center">
-          <Link className="van__back-link underlined" to='../vans'>Back to all vans</Link>
+          <Link className="van__back-link underlined" to='..' relative="path" >Back to all vans</Link>
           <div className="van__wrap">
             <div className="van__img-box">
               <img className="van__img"  src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
