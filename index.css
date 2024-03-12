@@ -335,6 +335,10 @@ code {
   padding-bottom: 53px;
 }
 
+.vans__filter-link {
+  margin-right: 15px;
+}
+
 .vans__title title {
   margin-top: 0;
   padding: 0;
