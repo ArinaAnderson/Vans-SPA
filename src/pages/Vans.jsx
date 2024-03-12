@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 
 const Vans = () => {
@@ -13,16 +13,37 @@ const Vans = () => {
 
   const [vansList, setVansList] = useState([]); 
   const [error, setError] = useState(null);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const typeFilter = searchParams.get('type');
+  const vansToDisplay = typeFilter === null ? vansList : vansList.filter((el) => el.type === typeFilter);
   
   useEffect(() => {
     axios.get("/api/vans")
-      .then(({data}) => setVansList(data.vans))
+      .then(({data}) => {
+        const typeFilter = searchParams.get('type');
+        // const filteredData =  typeFilter === null ? data.vans : data.vans.filter((el) => el.type === typeFilter);
+        // setVansList(filteredData);
+        setVansList(data.vans);
+      })
       .catch((e) => setError(e))
-  }, [])
-  
+  }, []);
+
+  /*
+  let [searchParams, setSearchParams] = useSearchParams();
+  if (searchParams.type !== null) {
+    setVansList((prev) => prev.filter((el) => el.type === searchParams.get('type')));
+  }
+  */
+
   return (
     <main className="vans">
       <div className="center">
+        <Link to="?type=simple" className="vans__filter-link">Simple</Link>
+        <Link to="?type=rugged" className="vans__filter-link">Rugged</Link>
+        <Link to="?type=luxury" className="vans__filter-link">Luxury</Link>
+        <Link to="." className="vans__filter-link">Clear</Link>
         <h1 className="vans__title title">Explore our van options</h1>
         <div className="vans__filter vans-filter">
           <div className="vans-filter__checkboxes">
@@ -43,7 +64,7 @@ const Vans = () => {
         </div>
         <div className="vans__list">
           <ul className="vans-list">
-            {vansList.map((van) => {
+            {vansToDisplay.map((van) => {
               const { id, name, price, type, description, imageUrl } = van;
               return (
                 <li className="vans-list__item" key={id}>
