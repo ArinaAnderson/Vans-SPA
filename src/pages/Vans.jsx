@@ -16,21 +16,55 @@ const Vans = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const typeFilter = searchParams.get('type');
+  console.log('SEARCHPARAMS', searchParams);
+
+  // const typeFilter = searchParams.get('type');
   const typeFilters = new Set(searchParams.getAll('type'));
+  console.log('TYPEFILTERS', typeFilters);
   // const vansToDisplay = typeFilter === null ? vansList : vansList.filter((el) => el.type === typeFilter);
   const vansToDisplay = typeFilters.size === 0 ? vansList : vansList.filter((el) => typeFilters.has(el.type));
 
-  const setFilter = (params) => setSearchParams(params);
-  const generateSearchParamString = (key, val) => {
+  const setFilter = (key, val, clearAll) => {
+    const currentURLSearchParams = new URLSearchParams(searchParams);
+
+    if (clearAll) {
+      // currentURLSearchParams.delete(key);
+      searchParams.delete(key);
+      setSearchParams(`?${searchParams.toString()}`);
+      // setSearchParams(`?${currentURLSearchParams.toString()}`);
+      // setSearchParams(generateSearchParamString(key, null, clearAll));
+      return;
+    }
+    if (typeFilters.has(val)) {
+      // console.log('typeFilters.has(val)',typeFilters.has(val))
+      // currentURLSearchParams.delete(key, val);
+      // setSearchParams(`?${currentURLSearchParams.toString()}`);
+      searchParams.delete(key, val);
+      setSearchParams(`?${searchParams.toString()}`);
+      // typeFilters.delete(val);
+      // setSearchParams(generateSearchParamString(key, null));
+      return;
+    }
+    // currentURLSearchParams.append(key, val);
+    // setSearchParams(`?${currentURLSearchParams.toString()}`);
+    searchParams.append(key, val);
+    setSearchParams(`?${searchParams.toString()}`);
+    // setSearchParams(generateSearchParamString(key, val));
+    // setSearchParams(params);
+  };
+
+  const generateSearchParamString = (key, val, clearAll) => {
     const currentURLSearchParams = new URLSearchParams(searchParams);
     if (val === null) {
-      currentURLSearchParams.delete(key); // .delete(key, val);
+      clearAll ? currentURLSearchParams.delete(key) : currentURLSearchParams.delete(key, val); // .delete(key, val);
       return `?${currentURLSearchParams.toString()}`;
     }
     currentURLSearchParams.append(key, val);
     return `?${currentURLSearchParams.toString()}`;
   }
+
+  const isFilterOn = (key, val) => {};
+
   
   useEffect(() => {
     axios.get("/api/vans")
@@ -57,7 +91,7 @@ const Vans = () => {
         <Link to={generateSearchParamString('type', 'simple')} className="vans__filter-link">Simple</Link>
         <Link to={generateSearchParamString('type', 'rugged')} className="vans__filter-link">Rugged</Link>
         <Link to={generateSearchParamString('type', 'luxury')} className="vans__filter-link">Luxury</Link>
-        <Link to={generateSearchParamString('type', null)} className="vans__filter-link">Clear</Link>
+        <Link to={generateSearchParamString('type', null, true)} className="vans__filter-link">Clear</Link>
         <div className="vans__filter vans-filter">
           <div className="vans-filter__checkboxes">
             <div className="vans-filter__checkbox">
@@ -67,7 +101,8 @@ const Vans = () => {
                 id="simple-vans"
                 name="simple"
                 value="simple"
-                onChange={(e) => setFilter({ type: e.target.name })}
+                onChange={(e) => setFilter('type', e.target.name)}
+                checked={typeFilters.has('simple')}
               />
               <label className="vans-filter__checkbox-label vans-filter__checkbox-label--simple" htmlFor="simple-vans">Simple</label>
             </div>
@@ -78,7 +113,10 @@ const Vans = () => {
                 id="luxury-vans"
                 name="luxury"
                 value="luxury"
-                onChange={(e) => setFilter({ type: e.target.name })}
+                onChange={(e) => {
+                  setFilter('type', e.target.name)
+                }}
+                checked={typeFilters.has('luxury')}
               />
               <label className="vans-filter__checkbox-label vans-filter__checkbox-label--luxury" htmlFor="luxury-vans">Luxury</label>
             </div>
@@ -89,7 +127,8 @@ const Vans = () => {
                 id="rugged-vans"
                 name="rugged"
                 value="rugged"
-                onChange={(e) => setFilter({ type: e.target.name })}
+                onChange={(e) => setFilter('type', e.target.name)}
+                checked={typeFilters.has('rugged')}
               />
               <label className="vans-filter__checkbox-label vans-filter__checkbox-label--rugged" htmlFor="rugged-vans">Rugged</label>
             </div>
@@ -97,7 +136,7 @@ const Vans = () => {
           <button
             className="vans-filter__reset-btn underlined"
             type="button"
-            onClick={() => setFilter({})}
+            onClick={() => setFilter('type', null, true)}
           >
             Clear filters
           </button>
@@ -147,3 +186,5 @@ export default Vans;
   <Link to="?type=luxury" className="vans__filter-link">Luxury</Link>
   <Link to="." className="vans__filter-link">Clear</Link>
 */
+
+// onChange={(e) => setFilter(generateSearchParamString('type', 'simple'))}
