@@ -16,15 +16,26 @@ const Vans = () => {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const setFilter = (value) => setSearchParams(value);
-
   const typeFilter = searchParams.get('type');
-  const vansToDisplay = typeFilter === null ? vansList : vansList.filter((el) => el.type === typeFilter);
+  const typeFilters = new Set(searchParams.getAll('type'));
+  // const vansToDisplay = typeFilter === null ? vansList : vansList.filter((el) => el.type === typeFilter);
+  const vansToDisplay = typeFilters.size === 0 ? vansList : vansList.filter((el) => typeFilters.has(el.type));
+
+  const setFilter = (params) => setSearchParams(params);
+  const generateSearchParamString = (key, val) => {
+    const currentURLSearchParams = new URLSearchParams(searchParams);
+    if (val === null) {
+      currentURLSearchParams.delete(key); // .delete(key, val);
+      return `?${currentURLSearchParams.toString()}`;
+    }
+    currentURLSearchParams.append(key, val);
+    return `?${currentURLSearchParams.toString()}`;
+  }
   
   useEffect(() => {
     axios.get("/api/vans")
       .then(({data}) => {
-        const typeFilter = searchParams.get('type');
+        // const typeFilter = searchParams.get('type');
         // const filteredData =  typeFilter === null ? data.vans : data.vans.filter((el) => el.type === typeFilter);
         // setVansList(filteredData);
         setVansList(data.vans);
@@ -43,6 +54,10 @@ const Vans = () => {
     <main className="vans">
       <div className="center">
         <h1 className="vans__title title">Explore our van options</h1>
+        <Link to={generateSearchParamString('type', 'simple')} className="vans__filter-link">Simple</Link>
+        <Link to={generateSearchParamString('type', 'rugged')} className="vans__filter-link">Rugged</Link>
+        <Link to={generateSearchParamString('type', 'luxury')} className="vans__filter-link">Luxury</Link>
+        <Link to={generateSearchParamString('type', null)} className="vans__filter-link">Clear</Link>
         <div className="vans__filter vans-filter">
           <div className="vans-filter__checkboxes">
             <div className="vans-filter__checkbox">
