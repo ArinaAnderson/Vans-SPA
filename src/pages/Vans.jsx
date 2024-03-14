@@ -163,7 +163,7 @@ const Vans = () => {
                 <li className="vans-list__item" key={id}>
                   <Link
                     className={`vans-list__wrap-link vans-list__wrap-link--${id%2}`}
-                    to={`/vans/${id}`}
+                    to={id}
                     aria-label={`View details for ${name}, priced at $${price} per day`}
                   >
                     <div className="vans-list__img-box">

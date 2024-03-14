@@ -48,7 +48,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
               <li className="host-vans__item" key={id}>
                 <Link
                   className="host-vans__item-link"
-                  to={`${id}`}
+                  to={id}
                   onClick={() => setCurrentVan(van)}
                 >
                   <div className="host-vans__item-img-box">
