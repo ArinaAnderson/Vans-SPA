@@ -7,18 +7,18 @@ const Vans = () => {
   const [error, setError] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchNative = new URLSearchParams(document.location.search);
-  console.log('NATIVE', searchNative)
+  const searchParamsNative = new URLSearchParams(document.location.search);
+  console.log('NATIVE', searchParamsNative)
 
   console.log('SEARCHPARAMS', searchParams);
 
-  const typeFilters = new Set(searchNative.getAll('type')); // new Set(searchParams.getAll('type'));
+  const typeFilters = new Set(searchParamsNative.getAll('type')); // new Set(searchParams.getAll('type'));
   console.log('TYPEFILTERS', typeFilters);
 
   const vansToDisplay = typeFilters.size === 0 ? vansList : vansList.filter((el) => typeFilters.has(el.type));
 
   const setFilter = (key, val, clearAll) => {
-    const currentURLSearchParams = new URLSearchParams(searchNative.toString());
+    const currentURLSearchParams = new URLSearchParams(searchParamsNative.toString());
     console.log('currentURLSearchParams', currentURLSearchParams)
     if (clearAll) {
       currentURLSearchParams.delete(key);
@@ -53,8 +53,9 @@ const Vans = () => {
     return `?${searchParams.toString()}`;
   }
 
-  const isFilterOn = (key, val) => {};
+  const normalizeLinkStateVal = (searchValStr) => searchValStr.length > 0 ? `?${searchValStr}` : '';
 
+  const isFilterOn = (key, val) => {};
   
   useEffect(() => {
     axios.get("/api/vans")
@@ -130,6 +131,7 @@ const Vans = () => {
                   <Link
                     className={`vans-list__wrap-link vans-list__wrap-link--${id%2}`}
                     to={id}
+                    state={{search: normalizeLinkStateVal(searchParamsNative.toString())}}
                     aria-label={`View details for ${name}, priced at $${price} per day`}
                   >
                     <div className="vans-list__img-box">

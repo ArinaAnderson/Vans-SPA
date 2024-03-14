@@ -1,11 +1,13 @@
 import React, { useState, useEffect} from 'react';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
 
 const VanDetail = () => {
   const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
   // const [requestStatus, setRequestStatus]
+  const location = useLocation();
+  const backLinkStateSearch = location.state ? location.state.search : '';
 
   const params = useParams();
 
@@ -26,7 +28,9 @@ const VanDetail = () => {
     return (
       <main className="van">
         <div className="center">
-          <Link className="van__back-link underlined" to='..' relative="path" >Back to all vans</Link>
+          <Link
+            className="van__back-link underlined"
+            to={`..${backLinkStateSearch}`} relative="path" >Back to all vans</Link>
           <div className="van__wrap">
             <div className="van__img-box">
               <img className="van__img"  src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
