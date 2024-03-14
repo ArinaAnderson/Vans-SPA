@@ -3,74 +3,50 @@ import { Link, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 
 const Vans = () => {
-  /*
-  const vansList = [
-    { id: "1", name: "Modest Explorer", price: 60, description: "The Modest Explorer is a van designed to get you out of the house and into nature. This beauty is equipped with solar panels, a composting toilet, a water tank and kitchenette. The idea is that you can pack up your home and escape for a weekend or even longer!", imageUrl: "https://assets.scrimba.com/advanced-react/react-router/modest-explorer.png", type: "simple" },
-    { id: "2", name: "Beach Bum", price: 80, description: "Beach Bum is a van inspired by surfers and travelers. It was created to be a portable home away from home, but with some cool features in it you won't find in an ordinary camper.", imageUrl: "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png", type: "rugged" },
-    { id: "3", name: "Beach Bum", price: 80, description: "Beach Bum is a van inspired by surfers and travelers. It was created to be a portable home away from home, but with some cool features in it you won't find in an ordinary camper.", imageUrl: "https://assets.scrimba.com/advanced-react/react-router/beach-bum.png", type: "rugged" },
-  ];
-  */
-
   const [vansList, setVansList] = useState([]); 
   const [error, setError] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const searchNative = new URLSearchParams(document.location.search);
+  console.log('NATIVE', searchNative)
 
   console.log('SEARCHPARAMS', searchParams);
 
-  // const typeFilter = searchParams.get('type');
-  const typeFilters = new Set(searchParams.getAll('type'));
+  const typeFilters = new Set(searchNative.getAll('type')); // new Set(searchParams.getAll('type'));
   console.log('TYPEFILTERS', typeFilters);
-  // const vansToDisplay = typeFilter === null ? vansList : vansList.filter((el) => el.type === typeFilter);
+
   const vansToDisplay = typeFilters.size === 0 ? vansList : vansList.filter((el) => typeFilters.has(el.type));
 
   const setFilter = (key, val, clearAll) => {
-    const currentURLSearchParams = new URLSearchParams(searchParams);
-
+    const currentURLSearchParams = new URLSearchParams(searchNative.toString());
+    console.log('currentURLSearchParams', currentURLSearchParams)
     if (clearAll) {
-      // currentURLSearchParams.delete(key);
-      searchParams.delete(key);
-      setSearchParams(searchParams);
+      currentURLSearchParams.delete(key);
+      // searchParams.delete(key);
+      // setSearchParams(searchParams);
       // setSearchParams(`?${searchParams.toString()}`);
-
-      // setSearchParams(`?${currentURLSearchParams.toString()}`);
-      // setSearchParams(generateSearchParamString(key, null, clearAll));
+      setSearchParams(`?${currentURLSearchParams.toString()}`);
       return;
     }
     if (typeFilters.has(val)) {
-      // console.log('typeFilters.has(val)',typeFilters.has(val))
-      // currentURLSearchParams.delete(key, val);
-      // setSearchParams(`?${currentURLSearchParams.toString()}`);
-      searchParams.delete(key, val);
-      setSearchParams(searchParams);
+      console.log('typeFilters.has(val)',typeFilters.has(val))
+      currentURLSearchParams.delete(key, val);
+      setSearchParams(`?${currentURLSearchParams.toString()}`);
+      // searchParams.delete(key, val);
+      // setSearchParams(searchParams);
       // setSearchParams(`?${searchParams.toString()}`);
-
-      // typeFilters.delete(val);
-      // setSearchParams(generateSearchParamString(key, null));
       return;
     }
-    // currentURLSearchParams.append(key, val);
-    // setSearchParams(`?${currentURLSearchParams.toString()}`);
-    searchParams.append(key, val);
-    setSearchParams(searchParams);
+    currentURLSearchParams.append(key, val);
+    setSearchParams(`?${currentURLSearchParams.toString()}`);
+    // searchParams.append(key, val);
+    // setSearchParams(searchParams);
     // setSearchParams(`?${searchParams.toString()}`);
-    
-    // setSearchParams(generateSearchParamString(key, val));
-    // setSearchParams(params);
   };
 
   const generateSearchParamString = (key, val, clearAll) => {
-    /*
-    const currentURLSearchParams = new URLSearchParams(searchParams);
     if (val === null) {
-      clearAll ? currentURLSearchParams.delete(key) : currentURLSearchParams.delete(key, val); // .delete(key, val);
-      return `?${currentURLSearchParams.toString()}`;
-    }
-    currentURLSearchParams.append(key, val);
-    return `?${currentURLSearchParams.toString()}`;
-    */
-    if (val === null) {
-      clearAll ? searchParams.delete(key) : searchParams.delete(key, val); // .delete(key, val);
+      clearAll ? searchParams.delete(key) : searchParams.delete(key, val);
       return `?${searchParams.toString()}`;
     }
     searchParams.append(key, val);
@@ -83,20 +59,10 @@ const Vans = () => {
   useEffect(() => {
     axios.get("/api/vans")
       .then(({data}) => {
-        // const typeFilter = searchParams.get('type');
-        // const filteredData =  typeFilter === null ? data.vans : data.vans.filter((el) => el.type === typeFilter);
-        // setVansList(filteredData);
         setVansList(data.vans);
       })
       .catch((e) => setError(e))
   }, []);
-
-  /*
-  let [searchParams, setSearchParams] = useSearchParams();
-  if (searchParams.type !== null) {
-    setVansList((prev) => prev.filter((el) => el.type === searchParams.get('type')));
-  }
-  */
 
   return (
     <main className="vans">
