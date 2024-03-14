@@ -30,7 +30,9 @@ const Vans = () => {
     if (clearAll) {
       // currentURLSearchParams.delete(key);
       searchParams.delete(key);
-      setSearchParams(`?${searchParams.toString()}`);
+      setSearchParams(searchParams);
+      // setSearchParams(`?${searchParams.toString()}`);
+
       // setSearchParams(`?${currentURLSearchParams.toString()}`);
       // setSearchParams(generateSearchParamString(key, null, clearAll));
       return;
@@ -40,7 +42,9 @@ const Vans = () => {
       // currentURLSearchParams.delete(key, val);
       // setSearchParams(`?${currentURLSearchParams.toString()}`);
       searchParams.delete(key, val);
-      setSearchParams(`?${searchParams.toString()}`);
+      setSearchParams(searchParams);
+      // setSearchParams(`?${searchParams.toString()}`);
+
       // typeFilters.delete(val);
       // setSearchParams(generateSearchParamString(key, null));
       return;
@@ -48,12 +52,15 @@ const Vans = () => {
     // currentURLSearchParams.append(key, val);
     // setSearchParams(`?${currentURLSearchParams.toString()}`);
     searchParams.append(key, val);
-    setSearchParams(`?${searchParams.toString()}`);
+    setSearchParams(searchParams);
+    // setSearchParams(`?${searchParams.toString()}`);
+    
     // setSearchParams(generateSearchParamString(key, val));
     // setSearchParams(params);
   };
 
   const generateSearchParamString = (key, val, clearAll) => {
+    /*
     const currentURLSearchParams = new URLSearchParams(searchParams);
     if (val === null) {
       clearAll ? currentURLSearchParams.delete(key) : currentURLSearchParams.delete(key, val); // .delete(key, val);
@@ -61,6 +68,13 @@ const Vans = () => {
     }
     currentURLSearchParams.append(key, val);
     return `?${currentURLSearchParams.toString()}`;
+    */
+    if (val === null) {
+      clearAll ? searchParams.delete(key) : searchParams.delete(key, val); // .delete(key, val);
+      return `?${searchParams.toString()}`;
+    }
+    searchParams.append(key, val);
+    return `?${searchParams.toString()}`;
   }
 
   const isFilterOn = (key, val) => {};
