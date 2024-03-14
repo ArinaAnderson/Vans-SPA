@@ -50,6 +50,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
                   className="host-vans__item-link"
                   to={id}
                   onClick={() => setCurrentVan(van)}
+                  aria-label={`View details for ${name}, priced at $${price} per day`}
                 >
                   <div className="host-vans__item-img-box">
                     <img className="host-vans__img van__img" src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
