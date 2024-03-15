@@ -131,7 +131,10 @@ const Vans = () => {
                   <Link
                     className={`vans-list__wrap-link vans-list__wrap-link--${id%2}`}
                     to={id}
-                    state={{search: normalizeLinkStateVal(searchParamsNative.toString())}}
+                    state={{
+                      search: normalizeLinkStateVal(searchParamsNative.toString()),
+                      typeFilters: Array.from(typeFilters),
+                    }}
                     aria-label={`View details for ${name}, priced at $${price} per day`}
                   >
                     <div className="vans-list__img-box">

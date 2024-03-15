@@ -1,17 +1,24 @@
 import React, { useState, useEffect} from 'react';
 import { Link, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
-import { convertArrToStr } from '../utils/utils.js';
+import { buildString } from '../utils/utils.js';
 
 const VanDetail = () => {
   const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
   // const [requestStatus, setRequestStatus]
+
   const location = useLocation();
-  const backLinkStateSearch = location.state ? location.state.search : '';
+  const isLocationStateSet = (location) => location.state !== null;
+  console.log('FENYA', location.state, location.state !== null);
+  const backLinkStateSearch = isLocationStateSet(location) ? location.state.search : '';
+  const backLinkTextVariable = isLocationStateSet(location) ? buildString(location.state.typeFilters) : '';
+  const backLinkText = `Back to ${backLinkTextVariable.length > 0 ? backLinkTextVariable : 'all'} vans`;
+  /*
   const currentURLSearchParams = new URLSearchParams(backLinkStateSearch);
   const currentTypeFilters = currentURLSearchParams.getAll('type');
   const backLinkText = `Back to ${currentTypeFilters.length > 0 ? convertArrToStr(currentTypeFilters) : 'all'} vans`;
+  */
 
   const params = useParams();
 
@@ -19,7 +26,6 @@ const VanDetail = () => {
     axios.get(`/api/vans/${params.id}`)
       .then((response) => response.data)
       .then((payload) => setVanData(payload.vans))
-      .then(() => console.log(vanData))
       .catch((e) => setError(e))
   }, [params.id]);
 
