@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import { Link, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
+import { convertArrToStr } from '../utils/utils.js';
 
 const VanDetail = () => {
   const [vanData, setVanData] = useState(null); 
@@ -8,6 +9,9 @@ const VanDetail = () => {
   // const [requestStatus, setRequestStatus]
   const location = useLocation();
   const backLinkStateSearch = location.state ? location.state.search : '';
+  const currentURLSearchParams = new URLSearchParams(backLinkStateSearch);
+  const currentTypeFilters = currentURLSearchParams.getAll('type');
+  const backLinkText = `Back to ${currentTypeFilters.length > 0 ? convertArrToStr(currentTypeFilters) : 'all'} vans`;
 
   const params = useParams();
 
@@ -30,7 +34,10 @@ const VanDetail = () => {
         <div className="center">
           <Link
             className="van__back-link underlined"
-            to={`..${backLinkStateSearch}`} relative="path" >Back to all vans</Link>
+            to={`..${backLinkStateSearch}`} relative="path"
+          >
+            {backLinkText}
+          </Link>
           <div className="van__wrap">
             <div className="van__img-box">
               <img className="van__img"  src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
