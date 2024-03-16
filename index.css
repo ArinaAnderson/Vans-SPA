@@ -337,6 +337,7 @@ code {
 
 .vans__filter-link {
   margin-right: 15px;
+  margin-bottom: 45px;
 }
 
 .vans__title title {
@@ -484,7 +485,7 @@ code {
 @media (min-width: 520px) {
   .vans-list {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     flex-wrap: wrap;
     /* justify-content: space-between; */
     justify-content: flex-start;
@@ -501,7 +502,7 @@ code {
     */
     /* align-items: flex-start; */
     box-sizing: border-box;
-    flex-basis: calc((100% - 20px) / 2);
+    flex-basis: calc((100% - 25px) / 2);
     height: auto;
   }
 
@@ -523,7 +524,7 @@ code {
 @media (min-width: 768px) {
   .vans-list__item {
     flex-basis: 31%;
-    flex-basis: calc((100% - 40px) / 3);
+    flex-basis: calc((100% - 50px) / 3);
     height: auto;
   }
 }
