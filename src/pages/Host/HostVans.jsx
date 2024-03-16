@@ -2,6 +2,8 @@ import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+import getVans from '../../../api.js';
+
 const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
   // const [hostVans, setHostVans] = useState(null);
   const [error, setError] = useState(null);
@@ -13,6 +15,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
     }
     setError(null);
     setRequestStatus('loading');
+    /*
     axios.get('/api/host/vans') // 'if not hard-coded, /api/host/users/:userId/vans' ??'
       .then((response) => response.data)
       .then((payload) => {
@@ -24,6 +27,18 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
         setError(e);
         setRequestStatus('failure');
       })
+    */
+    const downloadVans = async () => {
+      try {
+        const vansList = await getVans('/api/host/vans');
+        setRequestStatus('success');
+        setCurrentHostVans(vansList);
+      } catch (e) {
+        setRequestStatus('failure');
+        setError(e);
+      }
+    };
+    downloadVans();
   }, []);
 
   const renderOutput = () => {

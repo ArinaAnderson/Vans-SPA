@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 
+import getVans from '../../api.js';
+
 const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
   // const [vansList, setVansList] = useState([]); 
   const [error, setError] = useState(null);
@@ -65,6 +67,8 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
 
     setError(null);
     setRequestStatus('loading');
+
+    /*
     axios.get("/api/vans")
       .then(({data}) => {
         console.log('ALL VANS', data.vans)
@@ -75,6 +79,18 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
         setRequestStatus('failure');
         setError(e);
       })
+    */
+    const downloadVans = async () => {
+      try {
+        const vansList = await getVans('/api/vans');
+        setRequestStatus('success');
+        setAllVans(vansList);
+      } catch (e) {
+        setRequestStatus('failure');
+        setError(e);
+      }
+    };
+    downloadVans();
   }, []);
 
   const renderOutput = () => {
