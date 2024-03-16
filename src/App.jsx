@@ -20,6 +20,7 @@ import HostVanPricing from './pages/Host/HostVanPricing.jsx';
 import HostVanPhotos from './pages/Host/HostVanPhotos.jsx';
 
 const App = () => {
+  const [allVans, setAllVans] = useState(null);
   const [currentVan, setCurrentVan] = useState(null);
   const [currentHostVans, setCurrentHostVans] = useState(null);
 
@@ -32,15 +33,16 @@ const App = () => {
             <Route path="income" element={<Income />} />
             <Route
               path="vans"
-              element={<HostVans currentHostVans={currentHostVans} setCurrentVan={setCurrentVan} setCurrentHostVans={setCurrentHostVans}
-            />} />
+              element={
+                <HostVans currentHostVans={currentHostVans} setCurrentHostVans={setCurrentHostVans} setCurrentVan={setCurrentVan} />
+              }
+            />
             <Route
               path="vans/:id"
-              element={<HostVanDetail
-              currentVan={currentVan}
-              currentHostVans={currentHostVans}
-              setCurrentVan={setCurrentVan}
-            />}>
+              element={
+                <HostVanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
+              }
+            >
               <Route index element={<HostVanInfo />} />
               <Route path="pricing" element={<HostVanPricing />} />
               <Route path="photos" element={<HostVanPhotos />} />
@@ -50,8 +52,18 @@ const App = () => {
           
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="vans" element={<Vans />} />
-          <Route path="vans/:id" element={<VanDetail />} />
+          <Route
+            path="vans"
+            element={
+              <Vans setCurrentVan={setCurrentVan} allVans={allVans} setAllVans={setAllVans} />
+            }
+          />
+          <Route
+            path="vans/:id"
+            element={
+              <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
+            }
+          />
         </Route>
       </Routes>
   </BrowserRouter>

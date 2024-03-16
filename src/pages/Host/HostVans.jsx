@@ -27,6 +27,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
   }, []);
 
   const renderOutput = () => {
+    /*
     if (currentHostVans === null && requetStatus === 'success') {
       return <h1 className="host-vans__subtitle">You don't host any vans yet...</h1>
     }
@@ -35,6 +36,21 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
     }
     if (requetStatus === 'failure') {
       return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
+    }
+    */
+    if (requetStatus === 'failure') {
+      return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
+    }
+    if (requetStatus === 'loading') {
+      return (<h2>Loading...</h2>);
+    }
+
+    if (currentHostVans === null) {
+      return (<h2>Loading...</h2>);
+    }
+
+    if (currentHostVans.length === 0) {
+      return (<h2>No vans to show...</h2>);
     }
 
     // to={`/host/vans/${id}`}

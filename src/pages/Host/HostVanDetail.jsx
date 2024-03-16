@@ -2,7 +2,7 @@ import React, { useState, useEffect} from 'react';
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import axios from 'axios';
 
-const HostVanDetail = ({ currentVan, currentHostVans, setCurrentVan}) => {
+const HostVanDetail = ({ currentVan, setCurrentVan}) => {
   // const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
   const [requetStatus, setRequestStatus] = useState('idle');
@@ -40,12 +40,7 @@ const HostVanDetail = ({ currentVan, currentHostVans, setCurrentVan}) => {
     if (requetStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
-    /*
-    if (vanData === null) {
-      return (<h2>No data available...</h2>);
-    }
-    */
-    if (currentVan === null) {
+    if (!currentVan) {
       return (<h2>Loading...</h2>);
     }
 

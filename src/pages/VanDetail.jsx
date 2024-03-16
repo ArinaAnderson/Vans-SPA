@@ -3,10 +3,10 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
 import { buildString } from '../utils/utils.js';
 
-const VanDetail = () => {
-  const [vanData, setVanData] = useState(null); 
+const VanDetail = ({ currentVan, setCurrentVan}) => {
+  // const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
-  // const [requestStatus, setRequestStatus]
+  const [requetStatus, setRequestStatus] = useState('idle');
 
   const location = useLocation();
   const isLocationStateSet = (location) => location.state !== null;
@@ -23,47 +23,70 @@ const VanDetail = () => {
   const params = useParams();
 
   useEffect(() => {
+    if (currentVan) {
+      return;
+    }
+
+    setError(null);
+    setRequestStatus('loading');
     axios.get(`/api/vans/${params.id}`)
       .then((response) => response.data)
-      .then((payload) => setVanData(payload.vans))
-      .catch((e) => setError(e))
+      .then((payload) => {
+        setRequestStatus('success');
+        // setVanData(payload.vans);
+        setCurrentVan(payload.vans);
+      })
+      .catch((e) => {
+        setRequestStatus('failure');
+        setError(e);
+      })
   }, [params.id]);
 
   const renderOutput = () => {
-    if (vanData === null) {
+    if (requetStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
-    const { type, name, id, imageUrl, description, price } = vanData;
+    if (requetStatus === 'failure') {
+      return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
+    }
+    if (currentVan === null) {
+      return (<h2>Loading...</h2>);
+    }
+    const { type, name, id, imageUrl, description, price } = currentVan;
 
     return (
-      <main className="van">
-        <div className="center">
-          <Link
-            className="van__back-link underlined"
-            to={`..${backLinkStateSearch}`} relative="path"
-          >
-            {backLinkText}
-          </Link>
-          <div className="van__wrap">
-            <div className="van__img-box">
-              <img className="van__img"  src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
-            </div>
-            <div className="van__info-wrap">
-              <span className={`btn van-type van-type--${type}`}>
-                {`${vanData.type[0].toUpperCase()}${vanData.type.substring(1)}`}
-              </span>
-              <h2 className="van__title">{name}</h2>
-              <p className="van__price-box"><span className="van__price">{`$${price}`}</span>/day</p>
-            </div>
+      <>
+        <Link
+          className="van__back-link underlined"
+          to={`..${backLinkStateSearch}`} relative="path"
+        >
+          {backLinkText}
+        </Link>
+        <div className="van__wrap">
+          <div className="van__img-box">
+            <img className="van__img"  src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
           </div>
-          <p className="van__description">{description}</p>
-          <Link className="link-button btn van__rent-link">Rent this van</Link>
+          <div className="van__info-wrap">
+            <span className={`btn van-type van-type--${type}`}>
+              {`${type[0].toUpperCase()}${type.substring(1)}`}
+            </span>
+            <h2 className="van__title">{name}</h2>
+            <p className="van__price-box"><span className="van__price">{`$${price}`}</span>/day</p>
+          </div>
         </div>
-      </main>
+        <p className="van__description">{description}</p>
+        <Link className="link-button btn van__rent-link">Rent this van</Link>
+      </>
     );
   }
 
-  return renderOutput();
+  return (
+    <main className="van">
+        <div className="center">
+          {renderOutput()}
+        </div>
+    </main>
+  );
 };
 // className="btn btn--orange"
 export default VanDetail;

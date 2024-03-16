@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 
-const Vans = () => {
-  const [vansList, setVansList] = useState([]); 
+const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
+  // const [vansList, setVansList] = useState([]); 
   const [error, setError] = useState(null);
+  const [requetStatus, setRequestStatus] = useState('idle');
 
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsNative = new URLSearchParams(document.location.search);
@@ -15,7 +16,7 @@ const Vans = () => {
   const typeFilters = new Set(searchParamsNative.getAll('type')); // new Set(searchParams.getAll('type'));
   console.log('TYPEFILTERS', typeFilters);
 
-  const vansToDisplay = typeFilters.size === 0 ? vansList : vansList.filter((el) => typeFilters.has(el.type));
+  const vansToDisplay = typeFilters.size === 0 ? allVans : allVans.filter((el) => typeFilters.has(el.type));
 
   const setFilter = (key, val, clearAll) => {
     const currentURLSearchParams = new URLSearchParams(searchParamsNative.toString());
@@ -58,16 +59,42 @@ const Vans = () => {
   const isFilterOn = (key, val) => {};
   
   useEffect(() => {
+    if (allVans) {
+      return;
+    }
+
+    setError(null);
+    setRequestStatus('loading');
     axios.get("/api/vans")
       .then(({data}) => {
-        setVansList(data.vans);
+        console.log('ALL VANS', data.vans)
+        setRequestStatus('success');
+        setAllVans(data.vans);
       })
-      .catch((e) => setError(e))
+      .catch((e) => {
+        setRequestStatus('failure');
+        setError(e);
+      })
   }, []);
 
-  return (
-    <main className="vans">
-      <div className="center">
+  const renderOutput = () => {
+    if (requetStatus === 'failure') {
+      return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
+    }
+    if (requetStatus === 'loading') {
+      return (<h2>Loading...</h2>);
+    }
+
+    if (allVans === null) {
+      return (<h2>Loading...</h2>);
+    }
+
+    if (allVans.length === 0) {
+      return (<h2>No vans to show...</h2>);
+    }
+
+    return (
+      <>
         <h1 className="vans__title title">Explore our van options</h1>
         <Link to={generateSearchParamString('type', 'simple')} className="vans__filter-link">Simple</Link>
         <Link to={generateSearchParamString('type', 'rugged')} className="vans__filter-link">Rugged</Link>
@@ -136,6 +163,7 @@ const Vans = () => {
                       typeFilters: Array.from(typeFilters),
                     }}
                     aria-label={`View details for ${name}, priced at $${price} per day`}
+                    onClick={() => setCurrentVan(van)}
                   >
                     <div className="vans-list__img-box">
                       <img className="vans-list__img van__img" src={imageUrl} width="" height="" alt={`Image of ${name}`} />
@@ -156,9 +184,16 @@ const Vans = () => {
             })}
           </ul>
         </div>
-      </div>
+      </>
+    );
+  }
+
+  return (
+    <main className="vans">
+        <div className="center">
+          {renderOutput()}
+        </div>
     </main>
-    
   );
 };
 // className="btn btn--orange"
