@@ -8,7 +8,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
   // const [vansList, setVansList] = useState([]); 
   const [error, setError] = useState(null);
   const [requetStatus, setRequestStatus] = useState('idle');
-
+  console.log('ALL VANS', allVans)
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsNative = new URLSearchParams(document.location.search);
   console.log('NATIVE', searchParamsNative)
@@ -17,8 +17,6 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
 
   const typeFilters = new Set(searchParamsNative.getAll('type')); // new Set(searchParams.getAll('type'));
   console.log('TYPEFILTERS', typeFilters);
-
-  const vansToDisplay = typeFilters.size === 0 ? allVans : allVans.filter((el) => typeFilters.has(el.type));
 
   const setFilter = (key, val, clearAll) => {
     const currentURLSearchParams = new URLSearchParams(searchParamsNative.toString());
@@ -68,7 +66,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     setError(null);
     setRequestStatus('loading');
 
-    /*
+    
     axios.get("/api/vans")
       .then(({data}) => {
         console.log('ALL VANS', data.vans)
@@ -79,7 +77,8 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
         setRequestStatus('failure');
         setError(e);
       })
-    */
+    
+    /*
     const downloadVans = async () => {
       try {
         const vansList = await getVans('/api/vans');
@@ -91,6 +90,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
       }
     };
     downloadVans();
+    */
   }, []);
 
   const renderOutput = () => {
@@ -109,6 +109,8 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
       return (<h2>No vans to show...</h2>);
     }
 
+    const vansToDisplay = typeFilters.size === 0 ? allVans : allVans.filter((el) => typeFilters.has(el.type));
+  
     return (
       <>
         <h1 className="vans__title title">Explore our van options</h1>
