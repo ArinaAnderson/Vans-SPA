@@ -19,6 +19,8 @@ import HostVanInfo from './pages/Host/HostVanInfo.jsx';
 import HostVanPricing from './pages/Host/HostVanPricing.jsx';
 import HostVanPhotos from './pages/Host/HostVanPhotos.jsx';
 
+import Error404 from './pages/Error404.jsx';
+
 const App = () => {
   const [allVans, setAllVans] = useState(null);
   const [currentVan, setCurrentVan] = useState(null);
@@ -64,6 +66,7 @@ const App = () => {
               <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
             }
           />
+          <Route path="*" element={<Error404 />} />
         </Route>
       </Routes>
   </BrowserRouter>
