@@ -112,10 +112,6 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     return (
       <>
         <h1 className="vans__title title">Explore our van options</h1>
-        <Link to={generateSearchParamString('type', 'simple')} className="vans__filter-link">Simple</Link>
-        <Link to={generateSearchParamString('type', 'rugged')} className="vans__filter-link">Rugged</Link>
-        <Link to={generateSearchParamString('type', 'luxury')} className="vans__filter-link">Luxury</Link>
-        <Link to={generateSearchParamString('type', null, true)} className="vans__filter-link">Clear</Link>
         <div className="vans__filter vans-filter">
           <div className="vans-filter__checkboxes">
             <div className="vans-filter__checkbox">
