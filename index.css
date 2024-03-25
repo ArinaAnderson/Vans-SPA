@@ -340,7 +340,7 @@ code {
   margin-bottom: 45px;
 }
 
-.vans__title title {
+.vans__title {
   margin-top: 0;
   padding: 0;
 }
@@ -1117,4 +1117,17 @@ code {
   .host-van__photos img {
     margin: 0 25px 15px 0;
   }
+}
+
+.error404 a {
+  margin-top: 25px;
+  margin-bottom: 30px;
+  color: white;
+  background-color: #161616;
+}
+
+.error404 a:hover,
+.error404 a:focus {
+  transform: translate(3px, 3px);
+  background-color: #174955;
 }

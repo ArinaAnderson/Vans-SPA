@@ -66,8 +66,20 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     setError(null);
     setRequestStatus('loading');
 
+    const getVans = async (url) => {
+      try {
+        const allVans = await axios.get(url);
+        setRequestStatus('success');
+        setAllVans(allVans.data.vans);
+      } catch(e) {
+        setError(e.message);
+        setRequestStatus('failure');
+      }
+    };
     
-    axios.get("/api/vans")
+    getVans("/api/vans")
+      
+      /*
       .then(({data}) => {
         console.log('ALL VANS', data.vans)
         setRequestStatus('success');
@@ -77,7 +89,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
         setRequestStatus('failure');
         setError(e);
       })
-    
+      */
     /*
     const downloadVans = async () => {
       try {
