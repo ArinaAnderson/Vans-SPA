@@ -66,42 +66,27 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     setError(null);
     setRequestStatus('loading');
 
-    const getVans = async (url) => {
+    const loadVans = async (url) => {
       try {
-        const allVans = await axios.get(url);
+        const allVans = await getVans(url);
         setRequestStatus('success');
-        setAllVans(allVans.data.vans);
+        setAllVans(allVans);
       } catch(e) {
         setError(e.message);
         setRequestStatus('failure');
       }
     };
-    
+    loadVans("/api/vans");
+    /*
     getVans("/api/vans")
-      
-      /*
-      .then(({data}) => {
-        console.log('ALL VANS', data.vans)
+      .then((data) => {
         setRequestStatus('success');
-        setAllVans(data.vans);
+        setAllVans(data);
       })
       .catch((e) => {
+        setError(e.message);
         setRequestStatus('failure');
-        setError(e);
       })
-      */
-    /*
-    const downloadVans = async () => {
-      try {
-        const vansList = await getVans('/api/vans');
-        setRequestStatus('success');
-        setAllVans(vansList);
-      } catch (e) {
-        setRequestStatus('failure');
-        setError(e);
-      }
-    };
-    downloadVans();
     */
   }, []);
 
@@ -114,6 +99,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     }
 
     if (allVans === null) {
+      console.log('HERE!!')
       return (<h2>Loading...</h2>);
     }
 
