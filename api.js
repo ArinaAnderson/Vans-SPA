@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const getVans = async (url) => {
+const getRequest = async (url) => {
   
   const reponse = await axios.get(url);
   const allVans = reponse.data.vans;
@@ -8,4 +8,4 @@ const getVans = async (url) => {
   return allVans;
 };
 
-export default getVans;
+export default getRequest;

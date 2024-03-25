@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from "react-router-dom";
 import axios from 'axios';
 
-import getVans from '../../api.js';
+import getRequest from '../../api.js';
 
 const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
   // const [vansList, setVansList] = useState([]); 
@@ -68,7 +68,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
 
     const loadVans = async (url) => {
       try {
-        const allVans = await getVans(url);
+        const allVans = await getRequest(url);
         setRequestStatus('success');
         setAllVans(allVans);
       } catch(e) {
