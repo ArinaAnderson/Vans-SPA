@@ -823,7 +823,7 @@ code {
 
 /* HostVans*/
 .host-vans {
-  min-height: calc(100vh - 260px);
+  min-height: calc(100vh - 200px);
 }
 
 .host-vans__subtitle {
@@ -943,7 +943,7 @@ code {
 .host-van {
   padding-top: 40px;
   padding-bottom: 85px;
-  min-height: calc(100vh - 290px);
+  min-height: calc(100vh - 180px);
 }
 
 .host-van__wrap {
