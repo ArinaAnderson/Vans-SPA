@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { 
+  RouterProvider,
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements
+} from 'react-router-dom';
 import Layout from './components/Layout.jsx';
 
 import Home from './pages/Home.jsx';
@@ -21,55 +26,55 @@ import HostVanPhotos from './pages/Host/HostVanPhotos.jsx';
 
 import Error404 from './pages/Error404.jsx';
 
+const router = createBrowserRouter(createRoutesFromElements(
+  <Route path="/" element={<Layout />}>
+    <Route path="host" element={<HostLayout />}>
+      <Route index element={<Dashboard />} />
+      <Route path="income" element={<Income />} />
+      <Route
+        path="vans"
+        element={
+          <HostVans currentHostVans={currentHostVans} setCurrentHostVans={setCurrentHostVans} setCurrentVan={setCurrentVan} />
+        }
+      />
+      <Route
+        path="vans/:id"
+        element={
+          <HostVanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
+        }
+      >
+        <Route index element={<HostVanInfo />} />
+        <Route path="pricing" element={<HostVanPricing />} />
+        <Route path="photos" element={<HostVanPhotos />} />
+      </Route>
+      <Route path="reviews" element={<Reviews />} />
+    </Route>
+    
+    <Route index element={<Home />} />
+    <Route path="about" element={<About />} />
+    <Route
+      path="vans"
+      element={
+        <Vans setCurrentVan={setCurrentVan} allVans={allVans} setAllVans={setAllVans} />
+      }
+    />
+    <Route
+      path="vans/:id"
+      element={
+        <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
+      }
+    />
+    <Route path="*" element={<Error404 />} />
+  </Route>
+));
+
 const App = () => {
   const [allVans, setAllVans] = useState(null);
   const [currentVan, setCurrentVan] = useState(null);
   const [currentHostVans, setCurrentHostVans] = useState(null);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="host" element={<HostLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="income" element={<Income />} />
-            <Route
-              path="vans"
-              element={
-                <HostVans currentHostVans={currentHostVans} setCurrentHostVans={setCurrentHostVans} setCurrentVan={setCurrentVan} />
-              }
-            />
-            <Route
-              path="vans/:id"
-              element={
-                <HostVanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
-              }
-            >
-              <Route index element={<HostVanInfo />} />
-              <Route path="pricing" element={<HostVanPricing />} />
-              <Route path="photos" element={<HostVanPhotos />} />
-            </Route>
-            <Route path="reviews" element={<Reviews />} />
-          </Route>
-          
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route
-            path="vans"
-            element={
-              <Vans setCurrentVan={setCurrentVan} allVans={allVans} setAllVans={setAllVans} />
-            }
-          />
-          <Route
-            path="vans/:id"
-            element={
-              <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
-            }
-          />
-          <Route path="*" element={<Error404 />} />
-        </Route>
-      </Routes>
-  </BrowserRouter>
+    <RouterProvider router={router} />
   );
 };
 
