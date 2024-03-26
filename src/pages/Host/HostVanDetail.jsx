@@ -2,10 +2,12 @@ import React, { useState, useEffect} from 'react';
 import { Link, NavLink, Outlet, useParams } from "react-router-dom";
 import axios from 'axios';
 
+import getRequest from '../../../api.js';
+
 const HostVanDetail = ({ currentVan, setCurrentVan}) => {
   // const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
-  const [requetStatus, setRequestStatus] = useState('idle');
+  const [requestStatus, setRequestStatus] = useState('idle');
 
   const params = useParams();
 
@@ -16,6 +18,7 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
   
     setError(null);
     setRequestStatus('loading');
+    /*
     axios.get(`/api/vans/${params.id}`)
       .then((response) => response.data)
       .then((payload) => {
@@ -29,22 +32,44 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
         setRequestStatus('failure');
         setError(e);
       })
+    */
+    const downloadHostVan = async (url) => {
+      try {
+        const hostVanData = await getRequest(url);
+        console.log('SPIRAL', hostVanData.vans[0]);
+        setRequestStatus('success');
+        if (hostVanData.vans.length === 0) {
+          setCurrentVan(null);
+        } else {
+          setCurrentVan(hostVanData.vans[0]);
+        }
+      } catch(e) {
+        console.log('MOCHA', e);
+        setError('failed to fetch data');
+        setRequestStatus('failure');
+      }
+    };
+    downloadHostVan(`/api/host/vans/${params.id}`)
   }, []); // [params.id]);
   
   const baseStyles = "host-van__nav-link underlined";
 
   const renderOutput = () => {
-    if (requetStatus === 'failure') {
-      return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
-    }
-    if (requetStatus === 'loading') {
+    if (requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
-    if (!currentVan) {
+    if (requestStatus === 'failure') {
+      return <h2>{`Error: ${error}, please, try again...`}</h2>; 
+    }
+    if (currentVan === null && requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
-
-    // const { type, name, id, imageUrl, description, price } = vanData;
+    if (currentVan === null && requestStatus === 'idle') {
+      return (<h2>Loading...</h2>);
+    }
+    if (currentVan === null && requestStatus === 'success') {
+      return (<h2>No data to show</h2>);
+    }
     const { type, name, id, imageUrl, description, price } = currentVan;
     
     // to="../vans"

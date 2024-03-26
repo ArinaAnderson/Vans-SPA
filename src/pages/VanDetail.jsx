@@ -2,15 +2,16 @@ import React, { useState, useEffect} from 'react';
 import { Link, useParams, useLocation } from "react-router-dom";
 import axios from 'axios';
 import { buildString } from '../utils/utils.js';
+import getRequest from '../../api.js';
 
 const VanDetail = ({ currentVan, setCurrentVan}) => {
   // const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
-  const [requetStatus, setRequestStatus] = useState('idle');
+  const [requestStatus, setRequestStatus] = useState('idle');
 
   const location = useLocation();
   const isLocationStateSet = (location) => location.state !== null;
-  console.log('FENYA', location.state, location.state !== null);
+  // console.log('FENYA', location.state, location.state !== null);
   const backLinkStateSearch = isLocationStateSet(location) ? location.state.search : '';
   const backLinkTextVariable = isLocationStateSet(location) ? buildString(location.state.typeFilters) : '';
   const backLinkText = `Back to ${backLinkTextVariable.length > 0 ? backLinkTextVariable : 'all'} vans`;
@@ -29,6 +30,24 @@ const VanDetail = ({ currentVan, setCurrentVan}) => {
 
     setError(null);
     setRequestStatus('loading');
+    const downloadVan = async (url) => {
+      try {
+        const vanData = await getRequest(url);
+        console.log('SPIRAL', vanData);
+        setRequestStatus('success');
+        if (vanData === null) {
+          setCurrentVan(null);
+        } else {
+          setCurrentVan(vanData.vans);
+        }
+        // setCurrentVan(vanData.vans);
+      } catch(e) {
+        setError('failed to fetch data');
+        setRequestStatus('failure');
+      }
+    };
+    downloadVan(`/api/vans/${params.id}`);
+    /*
     axios.get(`/api/vans/${params.id}`)
       .then((response) => response.data)
       .then((payload) => {
@@ -40,17 +59,21 @@ const VanDetail = ({ currentVan, setCurrentVan}) => {
         setRequestStatus('failure');
         setError(e);
       })
+    */
   }, [params.id]);
 
   const renderOutput = () => {
-    if (requetStatus === 'loading') {
-      return (<h2>Loading...</h2>);
+    if (requestStatus === 'loading') {
+      return (<h2 aria-live="polite">Loading...</h2>);
     }
-    if (requetStatus === 'failure') {
-      return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
+    if (requestStatus === 'failure') {
+      return <h2 aria-live="assertive">{`Error: ${error}, please, try again...`}</h2>; 
     }
-    if (currentVan === null) {
-      return (<h2>Loading...</h2>);
+    if (currentVan === null && requestStatus === 'idle') {
+      return (<h2 aria-live="polite">Loading...</h2>);
+    }
+    if (currentVan === null && requestStatus === 'success') {
+      return (<h2 aria-live="polite">No data to show</h2>);
     }
     const { type, name, id, imageUrl, description, price } = currentVan;
 

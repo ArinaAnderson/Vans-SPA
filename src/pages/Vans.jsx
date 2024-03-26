@@ -7,20 +7,19 @@ import getRequest from '../../api.js';
 const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
   // const [vansList, setVansList] = useState([]); 
   const [error, setError] = useState(null);
-  const [requetStatus, setRequestStatus] = useState('idle');
-  console.log('ALL VANS', allVans)
+  const [requestStatus, setRequestStatus] = useState('idle');
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsNative = new URLSearchParams(document.location.search);
-  console.log('NATIVE', searchParamsNative)
+  // console.log('NATIVE', searchParamsNative)
 
-  console.log('SEARCHPARAMS', searchParams);
+  // console.log('SEARCHPARAMS', searchParams);
 
   const typeFilters = new Set(searchParamsNative.getAll('type')); // new Set(searchParams.getAll('type'));
-  console.log('TYPEFILTERS', typeFilters);
+  // console.log('TYPEFILTERS', typeFilters);
 
   const setFilter = (key, val, clearAll) => {
     const currentURLSearchParams = new URLSearchParams(searchParamsNative.toString());
-    console.log('currentURLSearchParams', currentURLSearchParams)
+    // console.log('currentURLSearchParams', currentURLSearchParams)
     if (clearAll) {
       currentURLSearchParams.delete(key);
       // searchParams.delete(key);
@@ -30,7 +29,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
       return;
     }
     if (typeFilters.has(val)) {
-      console.log('typeFilters.has(val)',typeFilters.has(val))
+      // console.log('typeFilters.has(val)',typeFilters.has(val))
       currentURLSearchParams.delete(key, val);
       setSearchParams(`?${currentURLSearchParams.toString()}`);
       // searchParams.delete(key, val);
@@ -63,47 +62,71 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
       return;
     }
 
-    setError(null);
-    setRequestStatus('loading');
-
+    // setError(null);
+    // setRequestStatus('loading');
+    /*
     const loadVans = async (url) => {
       try {
         const allVans = await getRequest(url);
+        console.log('TUTUTUTUUT!!', requestStatus)
         setRequestStatus('success');
         setAllVans(allVans);
       } catch(e) {
+        console.log('ERROR')
+        setRequestStatus('failure');
         setError(e.message);
         setRequestStatus('failure');
       }
     };
     loadVans("/api/vans");
+    */
+    setError(null);
+    setRequestStatus('loading');
+
+    const downloadVans = async (url) => {
+      try {
+        const allVansData = await getRequest(url);
+        console.log('TUTUTUTUUT!!', allVansData);
+        setRequestStatus('success');
+        setAllVans(allVansData.vans);
+      } catch(e) {
+        console.log('ERROR', e.message)
+        setRequestStatus('failure');
+        setError('failed to fetch data');
+        // setError(e.message);
+        setRequestStatus('failure');
+      }
+    };
+    downloadVans("/api/vans");
     /*
     getVans("/api/vans")
       .then((data) => {
         setRequestStatus('success');
-        setAllVans(data);
+        setAllVans(data.vans);
       })
       .catch((e) => {
         setError(e.message);
         setRequestStatus('failure');
       })
-    */
+      */
   }, []);
 
   const renderOutput = () => {
-    if (requetStatus === 'failure') {
-      return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
+    if (requestStatus === 'failure') {
+      console.log('FAILURE')
+      return <h2>{`Error: ${error}, please, try again...`}</h2>; 
     }
-    if (requetStatus === 'loading') {
+    if (requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
-
+  
     if (allVans === null) {
       console.log('HERE!!')
       return (<h2>Loading...</h2>);
     }
 
     if (allVans.length === 0) {
+      console.log('TADADADADADM!!', requestStatus)
       return (<h2>No vans to show...</h2>);
     }
 

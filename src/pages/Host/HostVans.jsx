@@ -2,12 +2,12 @@ import React, { useState, useEffect} from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
-import getVans from '../../../api.js';
+import getRequest from '../../../api.js';
 
 const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
   // const [hostVans, setHostVans] = useState(null);
   const [error, setError] = useState(null);
-  const [requetStatus, setRequestStatus] = useState('idle');
+  const [requestStatus, setRequestStatus] = useState('idle');
 
   useEffect(() => {
     if (currentHostVans) {
@@ -30,12 +30,12 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
     */
     const downloadVans = async () => {
       try {
-        const vansList = await getVans('/api/host/vans');
+        const vansData = await getRequest('/api/host/vans');
         setRequestStatus('success');
-        setCurrentHostVans(vansList);
+        setCurrentHostVans(vansData.vans);
       } catch (e) {
         setRequestStatus('failure');
-        setError(e);
+        setError('failed to fetch data');
       }
     };
     downloadVans();
@@ -43,20 +43,20 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
 
   const renderOutput = () => {
     /*
-    if (currentHostVans === null && requetStatus === 'success') {
+    if (currentHostVans === null && requestStatus === 'success') {
       return <h1 className="host-vans__subtitle">You don't host any vans yet...</h1>
     }
-    if (currentHostVans === null || requetStatus === 'loading') {
+    if (currentHostVans === null || requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
-    if (requetStatus === 'failure') {
+    if (requestStatus === 'failure') {
       return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
     }
     */
-    if (requetStatus === 'failure') {
-      return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
+    if (requestStatus === 'failure') {
+      return <h2>{`Error ${error}, please, try again...`}</h2>; 
     }
-    if (requetStatus === 'loading') {
+    if (requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
 
