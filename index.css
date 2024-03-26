@@ -333,6 +333,7 @@ code {
 .vans {
   padding-top: 53px;
   padding-bottom: 53px;
+  min-height: calc(100vh - 165px);
 }
 
 .vans__filter-link {
@@ -593,7 +594,7 @@ code {
 .van {
   padding-top: 40px;
   padding-bottom: 85px;
-  min-height: calc(100vh - 290px);
+  min-height: calc(100vh - 165px);
 }
 
 .van__back-link {
