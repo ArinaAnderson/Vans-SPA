@@ -5,7 +5,6 @@ import axios from 'axios';
 import getRequest from '../../../api.js';
 
 const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
-  // const [hostVans, setHostVans] = useState(null);
   const [error, setError] = useState(null);
   const [requestStatus, setRequestStatus] = useState('idle');
 
