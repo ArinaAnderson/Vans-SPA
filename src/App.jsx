@@ -10,7 +10,7 @@ import Layout from './components/Layout.jsx';
 
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
-import Vans from './pages/Vans.jsx';
+import Vans, { loader as vansLoader } from './pages/Vans.jsx';
 import VanDetail from './pages/VanDetail.jsx';
 
 import HostLayout from './pages/Host/HostLayout.jsx';
@@ -26,8 +26,63 @@ import HostVanPhotos from './pages/Host/HostVanPhotos.jsx';
 
 import Error404 from './pages/Error404.jsx';
 
-const router = createBrowserRouter(createRoutesFromElements(
-  <Route path="/" element={<Layout />}>
+const App = () => {
+  const [allVans, setAllVans] = useState(null);
+  const [currentVan, setCurrentVan] = useState(null);
+  const [currentHostVans, setCurrentHostVans] = useState(null);
+
+  const router = createBrowserRouter(createRoutesFromElements(
+    <Route path="/" element={<Layout />}>
+      <Route path="host" element={<HostLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="income" element={<Income />} />
+        <Route
+          path="vans"
+          element={
+            <HostVans currentHostVans={currentHostVans} setCurrentHostVans={setCurrentHostVans} setCurrentVan={setCurrentVan} />
+          }
+        />
+        <Route
+          path="vans/:id"
+          element={
+            <HostVanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
+          }
+        >
+          <Route index element={<HostVanInfo />} />
+          <Route path="pricing" element={<HostVanPricing />} />
+          <Route path="photos" element={<HostVanPhotos />} />
+        </Route>
+        <Route path="reviews" element={<Reviews />} />
+      </Route>
+      
+      <Route index element={<Home />} />
+      <Route path="about" element={<About />} />
+      <Route
+        path="vans"
+        element={
+          <Vans setCurrentVan={setCurrentVan} allVans={allVans} setAllVans={setAllVans} />
+        }
+        loader={vansLoader}
+      />
+      <Route
+        path="vans/:id"
+        element={
+          <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
+        }
+      />
+      <Route path="*" element={<Error404 />} />
+    </Route>
+  ));
+
+  return (
+    <RouterProvider router={router} />
+  );
+};
+
+export default App;
+
+/*
+<Route path="/" element={<Layout />}>
     <Route path="host" element={<HostLayout />}>
       <Route index element={<Dashboard />} />
       <Route path="income" element={<Income />} />
@@ -66,19 +121,7 @@ const router = createBrowserRouter(createRoutesFromElements(
     />
     <Route path="*" element={<Error404 />} />
   </Route>
-));
-
-const App = () => {
-  const [allVans, setAllVans] = useState(null);
-  const [currentVan, setCurrentVan] = useState(null);
-  const [currentHostVans, setCurrentHostVans] = useState(null);
-
-  return (
-    <RouterProvider router={router} />
-  );
-};
-
-export default App;
+*/
 
 /*
 <div className="nav__logo-box">

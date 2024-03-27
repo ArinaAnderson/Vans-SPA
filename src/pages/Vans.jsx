@@ -1,47 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import axios from 'axios';
 
-import getRequest from '../../api.js';
+import getRequest, {getRequest2} from '../../api.js';
+
+export const loader = () => getRequest("/api/vans");
 
 const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
-  // const [vansList, setVansList] = useState([]); 
+  // const [allVans, setAllVans] = useState([]);
+  // const [currentVan, setCurrentVan] = useState(null);
+  
   const [error, setError] = useState(null);
   const [requestStatus, setRequestStatus] = useState('idle');
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsNative = new URLSearchParams(document.location.search);
-  // console.log('NATIVE', searchParamsNative)
 
-  // console.log('SEARCHPARAMS', searchParams);
+  // if (!allVans) {
+    const data = useLoaderData();
+    console.log('LOADERß',allVans, data.vans)
+    // setRequestStatus('success');
+    // setAllVans(data.vans);
+  // }
+  
+
 
   const typeFilters = new Set(searchParamsNative.getAll('type')); // new Set(searchParams.getAll('type'));
-  // console.log('TYPEFILTERS', typeFilters);
 
   const setFilter = (key, val, clearAll) => {
     const currentURLSearchParams = new URLSearchParams(searchParamsNative.toString());
-    // console.log('currentURLSearchParams', currentURLSearchParams)
     if (clearAll) {
       currentURLSearchParams.delete(key);
-      // searchParams.delete(key);
-      // setSearchParams(searchParams);
-      // setSearchParams(`?${searchParams.toString()}`);
       setSearchParams(`?${currentURLSearchParams.toString()}`);
       return;
     }
     if (typeFilters.has(val)) {
-      // console.log('typeFilters.has(val)',typeFilters.has(val))
       currentURLSearchParams.delete(key, val);
       setSearchParams(`?${currentURLSearchParams.toString()}`);
-      // searchParams.delete(key, val);
-      // setSearchParams(searchParams);
-      // setSearchParams(`?${searchParams.toString()}`);
       return;
     }
     currentURLSearchParams.append(key, val);
     setSearchParams(`?${currentURLSearchParams.toString()}`);
-    // searchParams.append(key, val);
-    // setSearchParams(searchParams);
-    // setSearchParams(`?${searchParams.toString()}`);
   };
 
   const generateSearchParamString = (key, val, clearAll) => {
@@ -53,33 +51,15 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     return `?${searchParams.toString()}`;
   }
 
-  const normalizeLinkStateVal = (searchValStr) => searchValStr.length > 0 ? `?${searchValStr}` : '';
-
   const isFilterOn = (key, val) => {};
-  
+
+  const normalizeLinkStateVal = (searchValStr) => searchValStr.length > 0 ? `?${searchValStr}` : '';
+  /*
   useEffect(() => {
     if (allVans) {
       return;
     }
 
-    // setError(null);
-    // setRequestStatus('loading');
-    /*
-    const loadVans = async (url) => {
-      try {
-        const allVans = await getRequest(url);
-        console.log('TUTUTUTUUT!!', requestStatus)
-        setRequestStatus('success');
-        setAllVans(allVans);
-      } catch(e) {
-        console.log('ERROR')
-        setRequestStatus('failure');
-        setError(e.message);
-        setRequestStatus('failure');
-      }
-    };
-    loadVans("/api/vans");
-    */
     setError(null);
     setRequestStatus('loading');
 
@@ -98,40 +78,31 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
       }
     };
     downloadVans("/api/vans");
-    /*
-    getVans("/api/vans")
-      .then((data) => {
-        setRequestStatus('success');
-        setAllVans(data.vans);
-      })
-      .catch((e) => {
-        setError(e.message);
-        setRequestStatus('failure');
-      })
-      */
   }, []);
-
+  */
   const renderOutput = () => {
+  
     if (requestStatus === 'failure') {
       console.log('FAILURE')
       return <h2>{`Error: ${error}, please, try again...`}</h2>; 
     }
+    /*
     if (requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
-    }
+    } // remove
   
     if (allVans === null) {
       console.log('HERE!!')
       return (<h2>Loading...</h2>);
-    }
-
-    if (allVans.length === 0) {
+    } // remove
+    */
+    
+    if (data.vans.length === 0) {// if (allVans.length === 0) {
       console.log('TADADADADADM!!', requestStatus)
       return (<h2>No vans to show...</h2>);
     }
-
-    const vansToDisplay = typeFilters.size === 0 ? allVans : allVans.filter((el) => typeFilters.has(el.type));
-  
+    // const vansToDisplay = typeFilters.size === 0 ? allVans : allVans.filter((el) => typeFilters.has(el.type));
+    const vansToDisplay = typeFilters.size === 0 ? data.vans : data.vans.filter((el) => typeFilters.has(el.type));
     return (
       <>
         <h1 className="vans__title title">Explore our van options</h1>
