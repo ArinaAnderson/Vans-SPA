@@ -53,7 +53,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
     }
     */
     if (requestStatus === 'failure') {
-      return <h2>{`Error ${error}, please, try again...`}</h2>; 
+      return <h2>{`Error ${error}...`}</h2>; 
     }
     if (requestStatus === 'loading') {
       return (<h2>Loading...</h2>);

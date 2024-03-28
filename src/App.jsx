@@ -26,6 +26,8 @@ import HostVanPhotos from './pages/Host/HostVanPhotos.jsx';
 
 import Error404 from './pages/Error404.jsx';
 
+import Error from './components/Error.jsx';
+
 const App = () => {
   const [allVans, setAllVans] = useState(null);
   const [currentVan, setCurrentVan] = useState(null);
@@ -63,11 +65,12 @@ const App = () => {
           <Vans setCurrentVan={setCurrentVan} allVans={allVans} setAllVans={setAllVans} />
         }
         loader={vansLoader}
+        errorElement={<Error />}
       />
       <Route
         path="vans/:id"
         element={
-          <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} />
+          <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} errorElement={<Error />} />
         }
       />
       <Route path="*" element={<Error404 />} />

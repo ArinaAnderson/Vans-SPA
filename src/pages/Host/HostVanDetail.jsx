@@ -59,7 +59,7 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
       return (<h2>Loading...</h2>);
     }
     if (requestStatus === 'failure') {
-      return <h2>{`Error: ${error}, please, try again...`}</h2>; 
+      return <h2>{`Error: ${error}...`}</h2>; 
     }
     if (currentVan === null && requestStatus === 'loading') {
       return (<h2>Loading...</h2>);

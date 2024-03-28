@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import axios from 'axios';
 
-import getRequest, {getRequest2} from '../../api.js';
+import getRequest from '../../api.js';
 
 export const loader = () => getRequest("/api/vans");
 
@@ -15,14 +15,9 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const searchParamsNative = new URLSearchParams(document.location.search);
 
-  // if (!allVans) {
-    const data = useLoaderData();
-    console.log('LOADERß',allVans, data.vans)
-    // setRequestStatus('success');
-    // setAllVans(data.vans);
-  // }
-  
 
+  const data = useLoaderData();
+  console.log('DATA DATA.VANS', data, data.vans);
 
   const typeFilters = new Set(searchParamsNative.getAll('type')); // new Set(searchParams.getAll('type'));
 
@@ -98,9 +93,10 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     */
     
     if (data.vans.length === 0) {// if (allVans.length === 0) {
-      console.log('TADADADADADM!!', requestStatus)
+      console.log('EMPTY ARR')
       return (<h2>No vans to show...</h2>);
     }
+
     // const vansToDisplay = typeFilters.size === 0 ? allVans : allVans.filter((el) => typeFilters.has(el.type));
     const vansToDisplay = typeFilters.size === 0 ? data.vans : data.vans.filter((el) => typeFilters.has(el.type));
     return (

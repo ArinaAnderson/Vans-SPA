@@ -67,7 +67,7 @@ const VanDetail = ({ currentVan, setCurrentVan}) => {
       return (<h2 aria-live="polite">Loading...</h2>);
     }
     if (requestStatus === 'failure') {
-      return <h2 aria-live="assertive">{`Error: ${error}, please, try again...`}</h2>; 
+      return <h2 aria-live="assertive">{`Error: ${error}...`}</h2>; 
     }
     if (currentVan === null && requestStatus === 'idle') {
       return (<h2 aria-live="polite">Loading...</h2>);
