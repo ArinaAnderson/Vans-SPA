@@ -1119,6 +1119,9 @@ code {
     margin: 0 25px 15px 0;
   }
 }
+.error404 {
+  min-height: calc(100vh - 165px);
+}
 
 .error404 a {
   margin-top: 25px;
