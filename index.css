@@ -73,6 +73,10 @@ code {
   transform: translate(3px, 3px);
 }
 
+.link-button:active {
+  transform: scale(0.9);
+}
+
 .underlined {
   position: relative;
 
@@ -187,6 +191,26 @@ code {
 .nav__breadcrumb:active {
   transform: scale(0.9);
 }
+.nav__breadcrumb--login a {
+  position: relative;
+
+  display: block;
+  width: 24px;
+  height: 24px;
+  box-sizing: border-box;
+  font-size: 0;
+}
+
+.nav__breadcrumb--login a::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  background-image: url("/assets/images/user-icon.svg");
+  background-repeat: no-repeat;
+}
 
 .nav__breadcrumb-link {
   /* position: relative; */
@@ -225,6 +249,20 @@ code {
   height: 2px;
   */
   background-color: #9e1b5a;
+}
+
+.nav__breadcrumb--login .nav__breadcrumb-link--active::before {
+  /*
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 2px;
+  */
+  background-color: transparent;
+  background-image: url("/assets/images/user-icon--active.svg");
+  background-repeat: no-repeat;
 }
 
 .home-content {
@@ -1134,4 +1172,91 @@ code {
 .error404 a:focus {
   transform: translate(3px, 3px);
   background-color: #174955;
+}
+
+.login {
+  min-height: calc(100vh - 190px);
+  padding: 45px 0 75px 0;
+  text-align: center;
+}
+
+.login__title {
+  margin: 0 auto 45px auto;
+}
+
+.login__form {
+  margin: 0 auto;
+  max-width: 375px;
+}
+
+.login__input {
+  display: block;
+  width: 100%;
+  max-width: 375px;
+  box-sizing: border-box;
+  padding: 10px 13px;
+
+  font-size: 16px;
+
+  border: 1px solid #d1d5db;
+}
+
+.login__input:first-of-type {
+    border-radius: 6px 6px 0 0;
+    border-bottom: none;
+}
+
+.login__input:last-of-type {
+  border-radius: 0 0 6px 6px;
+}
+
+.login ::placeholder {
+  color: #343434;
+}
+
+.login__btn {
+  width: 100%;
+  margin-top: 22px;
+  color: white;
+  background-color: #dc6a19;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.login__btn:hover,
+.login__btn:focus {
+  background-color: #cf5d0c;
+}
+
+.login__signup-link {
+  position: relative;
+  display: inline-block;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 40px 0 40px 0;
+  box-sizing: border-box;
+
+  color: #dc6a19;
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+
+  border: none;
+
+  transition: transform .2s ease-in-out;
+  background-color: transparent;
+}
+
+.login__signup-link:hover::before,
+.login__signup-link:focus::before {
+  background-color: #dc6a19;
+}
+
+.login__signup-link:hover,
+.login__signup-link:focus {
+  transform: scale(1.2) translate(11px, 0);
+}
+
+.login__signup-link:active {
+  transform: scale(0.9);
 }
