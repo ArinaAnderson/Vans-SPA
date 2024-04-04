@@ -12,6 +12,7 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Vans, { loader as vansLoader } from './pages/Vans.jsx';
 import VanDetail from './pages/VanDetail.jsx';
+import Login from './pages/Login.jsx';
 
 import HostLayout from './pages/Host/HostLayout.jsx';
 import Dashboard from './pages/Host/Dashboard.jsx';
@@ -71,6 +72,12 @@ const App = () => {
         path="vans/:id"
         element={
           <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} errorElement={<Error />} />
+        }
+      />
+      <Route
+        path="login"
+        element={
+          <Login errorElement={<Error />} />
         }
       />
       <Route path="*" element={<Error404 />} />
