@@ -13,6 +13,8 @@ const Header = () => {
   // style={({isActive}) => isActive ? activeStyle : null }
   */
 
+  const baseStyles = "nav__breadcrumb-link";
+
   return (
     <header className="page-header">
       <nav className="nav center">
@@ -21,25 +23,32 @@ const Header = () => {
         </Link>
         
         <ul className="nav__breadcrumbs">
-          <li className="nav__breadcrumb nav__breadcrumb--active">
+          <li className="nav__breadcrumb">
             <NavLink
-              className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
+              className={({ isActive }) => isActive ? `${baseStyles} nav__breadcrumb-link--active underlined` : baseStyles}
               to="host">
                 Host
             </NavLink>
           </li>
-          <li className="nav__breadcrumb nav__breadcrumb--active">
+          <li className="nav__breadcrumb">
             <NavLink
-              className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
+              className={({ isActive }) => isActive ? `${baseStyles} nav__breadcrumb-link--active underlined` : baseStyles}
               to="about">
                 About
             </NavLink>
           </li>
-          <li className="nav__breadcrumb nav__breadcrumb--active">
+          <li className="nav__breadcrumb">
             <NavLink
-              className={({ isActive }) => isActive ? "nav__breadcrumb-link nav__breadcrumb-link--active underlined" : "nav__breadcrumb-link"}
+              className={({ isActive }) => isActive ? `${baseStyles} nav__breadcrumb-link--active underlined` : baseStyles}
               to="vans">
                 Vans
+            </NavLink>
+          </li>
+          <li className="nav__breadcrumb nav__breadcrumb--login">
+            <NavLink
+              className={({ isActive }) => isActive ? `${baseStyles} nav__breadcrumb-link--active underlined` : baseStyles}
+              to="login">
+                Login
             </NavLink>
           </li>
         </ul>
