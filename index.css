@@ -41,8 +41,8 @@ code {
   max-width: 1200px;
   box-sizing: border-box;
   margin: 0 auto;
-  padding-left: 26px;
-  padding-right: 26px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .title {
@@ -459,7 +459,7 @@ code {
 
 .vans-filter__reset-btn:hover,
 .vans-filter__reset-btn:focus {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .vans-filter__reset-btn:active {
@@ -661,7 +661,7 @@ code {
 
 .van__back-link:hover,
 .van__back-link:focus {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 .van__back-link:active {
