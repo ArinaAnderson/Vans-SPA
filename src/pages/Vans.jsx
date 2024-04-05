@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
-import axios from 'axios';
 
 import getRequest from '../../api.js';
 
 export const loader = () => getRequest("/api/vans");
 
-const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
-  // const [allVans, setAllVans] = useState([]);
-  // const [currentVan, setCurrentVan] = useState(null);
-  
+const Vans = ({ setCurrentVan }) => {
   const [error, setError] = useState(null);
   const [requestStatus, setRequestStatus] = useState('idle');
   const [searchParams, setSearchParams] = useSearchParams();
@@ -61,7 +57,6 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     const downloadVans = async (url) => {
       try {
         const allVansData = await getRequest(url);
-        console.log('TUTUTUTUUT!!', allVansData);
         setRequestStatus('success');
         setAllVans(allVansData.vans);
       } catch(e) {
@@ -92,13 +87,13 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
     } // remove
     */
     
-    if (data.vans.length === 0) {// if (allVans.length === 0) {
+    if (data.length === 0) {// if (allVans.length === 0) {
       console.log('EMPTY ARR')
       return (<h2>No vans to show...</h2>);
     }
 
     // const vansToDisplay = typeFilters.size === 0 ? allVans : allVans.filter((el) => typeFilters.has(el.type));
-    const vansToDisplay = typeFilters.size === 0 ? data.vans : data.vans.filter((el) => typeFilters.has(el.type));
+    const vansToDisplay = typeFilters.size === 0 ? data : data.filter((el) => typeFilters.has(el.type));
     return (
       <>
         <h1 className="vans__title title">Explore our van options</h1>
@@ -165,7 +160,7 @@ const Vans = ({ setCurrentVan, allVans, setAllVans }) => {
                       typeFilters: Array.from(typeFilters),
                     }}
                     aria-label={`View details for ${name}, priced at $${price} per day`}
-                    onClick={() => setCurrentVan(van)}
+                    // onClick={() => setCurrentVan(van)}
                   >
                     <div className="vans-list__img-box">
                       <img className="vans-list__img van__img" src={imageUrl} width="" height="" alt={`Image of ${name}`} />

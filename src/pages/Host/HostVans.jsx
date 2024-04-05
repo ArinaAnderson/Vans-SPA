@@ -31,7 +31,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
       try {
         const vansData = await getRequest('/api/host/vans');
         setRequestStatus('success');
-        setCurrentHostVans(vansData.vans);
+        setCurrentHostVans(vansData);
       } catch (e) {
         setRequestStatus('failure');
         setError('failed to fetch data');
@@ -41,7 +41,6 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
   }, []);
 
   const renderOutput = () => {
-    /*
     if (currentHostVans === null && requestStatus === 'success') {
       return <h1 className="host-vans__subtitle">You don't host any vans yet...</h1>
     }
@@ -51,7 +50,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
     if (requestStatus === 'failure') {
       return <h2>{`Error ${error.message}, please, try again...`}</h2>; 
     }
-    */
+
     if (requestStatus === 'failure') {
       return <h2>{`Error ${error}...`}</h2>; 
     }
