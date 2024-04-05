@@ -24,7 +24,7 @@ const getRequest = async (url) => {
       throw new Error('NO ACCESS.');
     }
 
-    return data;
+    return data.vans;
   } catch(e) {
     console.log('ERRORORRRRRR');
     throw new Error(e.message);
