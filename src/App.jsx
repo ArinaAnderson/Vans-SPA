@@ -11,7 +11,7 @@ import Layout from './components/Layout.jsx';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Vans, { loader as vansLoader } from './pages/Vans.jsx';
-import VanDetail from './pages/VanDetail.jsx';
+import VanDetail, { loader as vanDetailLoader} from './pages/VanDetail.jsx';
 import Login from './pages/Login.jsx';
 
 import HostLayout from './pages/Host/HostLayout.jsx';
@@ -73,6 +73,7 @@ const App = () => {
         element={
           <VanDetail currentVan={currentVan} setCurrentVan={setCurrentVan} errorElement={<Error />} />
         }
+        loader={vanDetailLoader}
       />
       <Route
         path="login"

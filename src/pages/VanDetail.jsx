@@ -1,26 +1,29 @@
 import React, { useState, useEffect} from 'react';
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams, useLocation, useLoaderData } from "react-router-dom";
 import axios from 'axios';
 import { buildString } from '../utils/utils.js';
 import getRequest from '../../api.js';
 
-const VanDetail = ({ currentVan, setCurrentVan}) => {
+// export const loader = async ({params}) => await getRequest(`/api/vans/${params.id}`);
+export function loader({ params }) {
+  return getRequest(`/api/vans/${params.id}`)
+}
+
+const VanDetail = () => { // ({ currentVan, setCurrentVan}) => {
   // const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
   const [requestStatus, setRequestStatus] = useState('idle');
 
+  const currentVan = useLoaderData();
+  console.log('TOBBY!!!', currentVan);
+
   const location = useLocation();
   const isLocationStateSet = (location) => location.state !== null;
-  // console.log('FENYA', location.state, location.state !== null);
   const backLinkStateSearch = isLocationStateSet(location) ? location.state.search : '';
   const backLinkTextVariable = isLocationStateSet(location) ? buildString(location.state.typeFilters) : '';
   const backLinkText = `Back to ${backLinkTextVariable.length > 0 ? backLinkTextVariable : 'all'} vans`;
-  /*
-  const currentURLSearchParams = new URLSearchParams(backLinkStateSearch);
-  const currentTypeFilters = currentURLSearchParams.getAll('type');
-  const backLinkText = `Back to ${currentTypeFilters.length > 0 ? convertArrToStr(currentTypeFilters) : 'all'} vans`;
-  */
 
+  /*
   const params = useParams();
 
   useEffect(() => {
@@ -47,20 +50,19 @@ const VanDetail = ({ currentVan, setCurrentVan}) => {
       }
     };
     downloadVan(`/api/vans/${params.id}`);
-    /*
-    axios.get(`/api/vans/${params.id}`)
-      .then((response) => response.data)
-      .then((payload) => {
-        setRequestStatus('success');
-        // setVanData(payload.vans);
-        setCurrentVan(payload.vans);
-      })
-      .catch((e) => {
-        setRequestStatus('failure');
-        setError(e);
-      })
-    */
+
+    // axios.get(`/api/vans/${params.id}`)
+      // .then((response) => response.data)
+      // .then((payload) => {
+      //  setRequestStatus('success');
+      //  setCurrentVan(payload.vans);
+      //  })
+      // .catch((e) => {
+      //  setRequestStatus('failure');
+      //  setError(e);
+      //  })
   }, [params.id]);
+  */
 
   const renderOutput = () => {
     if (requestStatus === 'loading') {
@@ -74,6 +76,9 @@ const VanDetail = ({ currentVan, setCurrentVan}) => {
     }
     if (currentVan === null && requestStatus === 'success') {
       return (<h2 aria-live="polite">No data to show</h2>);
+    }
+    if (currentVan === null) {
+      return (<h2 aria-live="polite">NO SUCH A VAN No data to show</h2>);
     }
     const { type, name, id, imageUrl, description, price } = currentVan;
 
