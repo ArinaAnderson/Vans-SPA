@@ -5,9 +5,9 @@ import { buildString } from '../utils/utils.js';
 import getRequest from '../../api.js';
 
 // export const loader = async ({params}) => await getRequest(`/api/vans/${params.id}`);
-export function loader({ params }) {
+export const loader = ({ params }) => {
   return getRequest(`/api/vans/${params.id}`)
-}
+};
 
 const VanDetail = () => { // ({ currentVan, setCurrentVan}) => {
   // const [vanData, setVanData] = useState(null); 
@@ -65,6 +65,7 @@ const VanDetail = () => { // ({ currentVan, setCurrentVan}) => {
   */
 
   const renderOutput = () => {
+    /*
     if (requestStatus === 'loading') {
       return (<h2 aria-live="polite">Loading...</h2>);
     }
@@ -77,6 +78,7 @@ const VanDetail = () => { // ({ currentVan, setCurrentVan}) => {
     if (currentVan === null && requestStatus === 'success') {
       return (<h2 aria-live="polite">No data to show</h2>);
     }
+    */
     if (currentVan === null) {
       return (<h2 aria-live="polite">NO SUCH A VAN No data to show</h2>);
     }

@@ -5,7 +5,7 @@ const HostVanPhotos = () => {
   const [error, setError] = useState(null);
   const [requetStatus, setRequestStatus] = useState('idle');
 
-  const [currentVan, setCurrentVan] = useOutletContext();
+  const [currentVan] = useOutletContext();
 
   const params = useParams();
   console.log(currentVan);
@@ -22,7 +22,7 @@ const HostVanPhotos = () => {
       .then((response) => response.data)
       .then((payload) => {
         setRequestStatus('success');
-        setCurrentVan(payload.vans);
+        // setCurrentVan(payload.vans);
       })
       .catch((e) => {
         setError(e);

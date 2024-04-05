@@ -1,14 +1,22 @@
 import React, { useState, useEffect} from 'react';
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
-import axios from 'axios';
+import { Link, NavLink, Outlet, useParams, useLoaderData } from "react-router-dom";
 
 import getRequest from '../../../api.js';
+import { requireAuth } from '../../utils/utils.js';
 
-const HostVanDetail = ({ currentVan, setCurrentVan}) => {
+export const loader = async ({ params }) => {
+  await requireAuth();
+  return getRequest(`/api/host/vans/${params.id}`);
+};
+
+const HostVanDetail = () => { // ({ currentVan, setCurrentVan}) => {
   // const [vanData, setVanData] = useState(null); 
   const [error, setError] = useState(null);
   const [requestStatus, setRequestStatus] = useState('idle');
 
+  const data = useLoaderData();
+  const currentVan = data[0];
+  /*
   const params = useParams();
 
   useEffect(() => {
@@ -18,6 +26,7 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
   
     setError(null);
     setRequestStatus('loading');
+    */
     /*
     axios.get(`/api/vans/${params.id}`)
       .then((response) => response.data)
@@ -33,6 +42,7 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
         setError(e);
       })
     */
+    /*
     const downloadHostVan = async (url) => {
       try {
         const hostVanData = await getRequest(url);
@@ -51,10 +61,12 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
     };
     downloadHostVan(`/api/host/vans/${params.id}`)
   }, []); // [params.id]);
+  */
   
   const baseStyles = "host-van__nav-link underlined";
 
   const renderOutput = () => {
+    /*
     if (requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
     }
@@ -70,6 +82,13 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
     if (currentVan === null && requestStatus === 'success') {
       return (<h2>No data to show</h2>);
     }
+    if (currentVan === null && requestStatus === 'success') {
+      return (<h2>No data to show</h2>);
+    }
+    */
+    if (data.length === 0) {// if (allVans.length === 0) {
+      return (<h2>No data to show...</h2>);
+    }
     const { type, name, id, imageUrl, description, price } = currentVan;
     
     // to="../vans"
@@ -81,7 +100,7 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
             className="van__back-link underlined"
             to=".."
             relative="path"
-            onClick={() => setCurrentVan(null)}
+            // onClick={() => setCurrentVan(null)}
           >
             Back to all vans
           </Link>
@@ -124,7 +143,7 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
               </NavLink>
             </li>
           </ul>
-          <Outlet context={[currentVan, setCurrentVan]} />
+          <Outlet context={[currentVan]} />
         </div>
       </main>
     );
@@ -132,6 +151,7 @@ const HostVanDetail = ({ currentVan, setCurrentVan}) => {
 
   return renderOutput();
 };
+// <Outlet context={[currentVan, setCurrentVan]} />
 // className="btn btn--orange"
 export default HostVanDetail;
 // `{/host/vans/${id}`

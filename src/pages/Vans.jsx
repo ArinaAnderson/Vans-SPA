@@ -71,12 +71,11 @@ const Vans = ({ setCurrentVan }) => {
   }, []);
   */
   const renderOutput = () => {
-  
+    /*
     if (requestStatus === 'failure') {
       console.log('FAILURE')
       return <h2>{`Error: ${error}, please, try again...`}</h2>; 
     }
-    /*
     if (requestStatus === 'loading') {
       return (<h2>Loading...</h2>);
     } // remove

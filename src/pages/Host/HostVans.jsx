@@ -1,19 +1,27 @@
 import React, { useState, useEffect} from 'react';
-import { Link } from "react-router-dom";
-import axios from 'axios';
+import { Link, useLoaderData } from "react-router-dom";
 
 import getRequest from '../../../api.js';
+import { requireAuth } from '../../utils/utils.js';
 
-const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
+export const loader = async () => {
+  await requireAuth();
+  return getRequest('/api/host/vans');
+};
+
+const HostVans = () => { // ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
   const [error, setError] = useState(null);
   const [requestStatus, setRequestStatus] = useState('idle');
 
+  const currentHostVans = useLoaderData();
+  /*
   useEffect(() => {
     if (currentHostVans) {
       return;
     }
     setError(null);
     setRequestStatus('loading');
+  */
     /*
     axios.get('/api/host/vans') // 'if not hard-coded, /api/host/users/:userId/vans' ??'
       .then((response) => response.data)
@@ -27,6 +35,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
         setRequestStatus('failure');
       })
     */
+    /*
     const downloadVans = async () => {
       try {
         const vansData = await getRequest('/api/host/vans');
@@ -39,6 +48,7 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
     };
     downloadVans();
   }, []);
+  */
 
   const renderOutput = () => {
     if (currentHostVans === null && requestStatus === 'success') {
@@ -102,14 +112,3 @@ const HostVans = ({ currentHostVans, setCurrentVan, setCurrentHostVans }) => {
 };
 // className="btn btn--orange"
 export default HostVans;
-
-/*
-<div className="host-vans__item-img-box">
-                    <img className="host-vans__img van__img" src={imageUrl} width="" height="" alt={`Image of ${name}`}/>
-                  </div>
-                  <div className="host-vans__item-info">
-                    <p className="host-vans__item-name">{name}</p>
-                    <p className="host-vans__item-price">{price}</p>
-                  </div>
-                  <button type="button" className="host-vans__edit-btn underlined">Edit</button>
-*/

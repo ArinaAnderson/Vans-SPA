@@ -8,7 +8,7 @@ const getRequest = async (url) => {
   */
   try {
     const response = await axios.get(url);
-
+    console.log('RESPONSE', response);
     if (response.status > 299) {
       throw {
         message: "Failed to fetch vans", 
@@ -19,9 +19,10 @@ const getRequest = async (url) => {
 
     const { data } = response;
 
-    if (data.vans === null || data.vans === undefined) {
-      console.log('URL', url)
-      throw new Error('NO ACCESS.');
+    // if (data === null || data.vans === null || data.vans === undefined || vans === null || vans === undefined) {
+    if (data === null || data.vans === null || data.vans === undefined ) {
+      console.log('URL', url, response);
+      throw new Error('No data to show.');
     }
 
     return data.vans;
