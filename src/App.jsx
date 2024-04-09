@@ -13,7 +13,7 @@ import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Vans, { loader as vansLoader } from './pages/Vans.jsx';
 import VanDetail, { loader as vanDetailLoader} from './pages/VanDetail.jsx';
-import Login from './pages/Login.jsx';
+import Login, { loader as loginLoader } from './pages/Login.jsx';
 
 import HostLayout from './pages/Host/HostLayout.jsx';
 import Dashboard from './pages/Host/Dashboard.jsx';
@@ -128,8 +128,10 @@ const App = () => {
       <Route
         path="login"
         element={
-          <Login errorElement={<Error />} />
+          <Login />
         }
+        loader={loginLoader}
+        errorElement={<Error />}
       />
       <Route path="*" element={<Error404 />} />
     </Route>

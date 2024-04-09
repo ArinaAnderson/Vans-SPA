@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
 import axios from 'axios';
 
+export const loader = async ({ request }) => {
+  const url = new URL(request.url);
+  return url.searchParams;
+};
+
 const Login = () => {
   const [loginFormData, setLoginFormData] = React.useState({ email: '', password: '' });
 
-  // const params = new URL(document.location).searchParams;
-  const [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get('message'));
+  // const searchParams = new URL(document.location).searchParams;
+  // const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useLoaderData();  
 
   const handleSubmit = () => {
 
