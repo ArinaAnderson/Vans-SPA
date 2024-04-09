@@ -5,6 +5,10 @@ import axios from 'axios';
 const Login = () => {
   const [loginFormData, setLoginFormData] = React.useState({ email: '', password: '' });
 
+  // const params = new URL(document.location).searchParams;
+  const [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams.get('message'));
+
   const handleSubmit = () => {
 
   };
@@ -17,6 +21,7 @@ const Login = () => {
   const renderOutput = () => {
     return (
       <>
+        {searchParams.get('message') && <p className="login-warning">{searchParams.get('message')}</p>}
         <h1 className="login__title title">Sign in to your account</h1>
         <form className="login__form" onSubmit={handleSubmit}>
           <input
