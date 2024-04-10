@@ -53,8 +53,8 @@ export async function loginUser(creds) {
 }
 */
 
-/*
-export const loginUser = async (creds) => {
+
+export const loginUser2 = async (creds) => {
   try {
     const res = await fetch('/api/login', { method: "post", body: JSON.stringify(creds) });
 
@@ -72,7 +72,7 @@ export const loginUser = async (creds) => {
     throw new Error(e.message);
   }
 };
-*/
+
 
 export const loginUser = async (cred) => {
   try {
@@ -80,11 +80,13 @@ export const loginUser = async (cred) => {
       password: cred.password,
       email: cred.email,
     });
-    console.log('SPIRALLLLL', res)
+    console.log('RESPONSE', res)
     const { data } = res;
     return data;
   } catch(e) {
-    throw new Error(e.message);
+    
+    console.log('ERROR RESPONSE', e.response);
+    throw new Error(e.response.data.message, {cause: e.response});
   }
 };
 
