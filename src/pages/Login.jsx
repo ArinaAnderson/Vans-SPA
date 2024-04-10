@@ -10,6 +10,8 @@ export const loader = async ({ request }) => {
 
 const Login = () => {
   const [loginFormData, setLoginFormData] = React.useState({ email: '', password: '' });
+  const [requestStatus, setRequestStatus] = useState('idle');
+  const [error, setError] = useState(null);
 
   // const searchParams = new URL(document.location).searchParams;
   // const [searchParams, setSearchParams] = useSearchParams();
@@ -17,20 +19,17 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await loginUser(loginFormData);
-    console.log('KUKU', res);
+    setError(null)
+    setRequestStatus('loading');
+    try {
+      const res = await loginUser(loginFormData);
+      console.log('KUKU', res);
+    } catch(e) {
+      // setRequestStatus('failure');
+      setError(e);
+    }
+    setRequestStatus('idle');
   };
-
-  const handleSubmitScr = async (e) => {
-    e.preventDefault()
-    const res = await loginUser(loginFormData);
-    // loginUser(loginFormData)
-      // .then((res) => console.log(res))
-      console.log(res)
-  }
-
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -40,8 +39,9 @@ const Login = () => {
   const renderOutput = () => {
     return (
       <>
-        {searchParams.get('message') && <p className="login-warning">{searchParams.get('message')}</p>}
+        {searchParams.get('message') && <p className="login__warning">{searchParams.get('message')}</p>}
         <h1 className="login__title title">Sign in to your account</h1>
+        {error && <p className="login__warning">{error.message}</p>}
         <form className="login__form" onSubmit={handleSubmit}>
           <input
             className="login__input"
@@ -61,8 +61,8 @@ const Login = () => {
             placeholder="Password"
             onChange={(e) => handleChange(e)}
           />
-          <button className="login__btn btn link-button" type="submit">
-            Sign in
+          <button className="login__btn btn link-button" type="submit" disabled={requestStatus === 'loading'}>
+            {requestStatus === 'idle' ? 'Log in' : 'Logging in...'}
           </button>
         </form>
         <p className="login__signup">
@@ -82,3 +82,6 @@ const Login = () => {
 };
 
 export default Login;
+
+
+

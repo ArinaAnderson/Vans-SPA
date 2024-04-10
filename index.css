@@ -1261,7 +1261,7 @@ code {
   transform: scale(0.9);
 }
 
-.login-warning {
+.login__warning {
   color: #bb1d69; /* rgb(220, 0, 70); */
   font-size: 24px;
   font-weight: 700;
