@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useSearchParams, useLoaderData } from "react-router-dom";
-import axios from 'axios';
+
+import { loginUser } from '../../api.js';
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
@@ -14,9 +15,22 @@ const Login = () => {
   // const [searchParams, setSearchParams] = useSearchParams();
   const searchParams = useLoaderData();  
 
-  const handleSubmit = () => {
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const res = await loginUser(loginFormData);
+    console.log('KUKU', res);
   };
+
+  const handleSubmitScr = async (e) => {
+    e.preventDefault()
+    const res = await loginUser(loginFormData);
+    // loginUser(loginFormData)
+      // .then((res) => console.log(res))
+      console.log(res)
+  }
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target

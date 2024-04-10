@@ -201,7 +201,7 @@ code {
   font-size: 0;
 }
 
-.nav__breadcrumb--login a::before {
+.nav__breadcrumb--login .nav__breadcrumb-link::before {
   content: "";
   position: absolute;
   top: -1px;

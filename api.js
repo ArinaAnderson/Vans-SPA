@@ -33,3 +33,58 @@ const getRequest = async (url) => {
 };
 
 export default getRequest;
+
+/*
+export async function loginUser(creds) {
+  const res = await fetch("/api/login",
+      { method: "post", body: JSON.stringify(creds) }
+  )
+  const data = await res.json()
+
+  if (!res.ok) {
+      throw {
+          message: data.message,
+          statusText: res.statusText,
+          status: res.status
+      }
+  }
+
+  return data
+}
+*/
+
+/*
+export const loginUser = async (creds) => {
+  try {
+    const res = await fetch('/api/login', { method: "post", body: JSON.stringify(creds) });
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw {
+        message: data.message,
+        statusText: res.statusText,
+        status: res.status
+      };
+    }
+    console.log('SPIRALLLLL', res)
+    return data;
+  } catch(e) {
+    throw new Error(e.message);
+  }
+};
+*/
+
+export const loginUser = async (cred) => {
+  try {
+    const res = await axios.post('/api/login', {
+      password: cred.password,
+      email: cred.email,
+    });
+    console.log('SPIRALLLLL', res)
+    const { data } = res;
+    return data;
+  } catch(e) {
+    throw new Error(e.message);
+  }
+};
+
