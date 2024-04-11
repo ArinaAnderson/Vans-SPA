@@ -1,6 +1,4 @@
-/*
-import { createServer, Model } from "miragejs"
-
+import { createServer, Model, Response } from "miragejs"
 
 createServer({
     models: {
@@ -44,25 +42,24 @@ createServer({
         })
 
         this.post("/login", (schema, request) => {
-            // never save raw text passwords like this:
-            const { email, password } = request.requestBody;
-            const foundUser = schema.users.findBy({email, password});
+            const { email, password } = JSON.parse(request.requestBody)
+            // never save raw text passwords in your database
+            const foundUser = schema.users.findBy({ email, password })
             if (!foundUser) {
-                return new Response(401, {}, {message: "No user with those credentials found!"});
+                return new Response(401, {}, { message: "No user with those credentials found!" })
             }
 
-            foundUser.password = undefined;
+            // don't send the password back to the client
+            foundUser.password = undefined
             return {
                 user: foundUser,
-                token: "Enjoy your video game, here's your tokens",
+                token: "Enjoy your pizza, here's your tokens."
             }
         })
     }
 })
-*/
 
-
-
+/*
 import { createServer, Model, Response } from "miragejs"
 
 
@@ -127,3 +124,4 @@ createServer({
         })
     }
 })
+*/
