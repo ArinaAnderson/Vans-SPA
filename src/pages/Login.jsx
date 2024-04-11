@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useSearchParams, useLoaderData } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData, useNavigate } from "react-router-dom";
 
 import { loginUser } from '../../api.js';
 
@@ -15,7 +15,9 @@ const Login = () => {
 
   // const searchParams = new URL(document.location).searchParams;
   // const [searchParams, setSearchParams] = useSearchParams();
-  const searchParams = useLoaderData();  
+  const searchParams = useLoaderData();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ const Login = () => {
     setRequestStatus('loading');
     try {
       const res = await loginUser(loginFormData);
+      navigate('/host', { replace: true });
       console.log('KUKU', res);
     } catch(e) {
       // setRequestStatus('failure');

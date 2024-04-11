@@ -11,7 +11,7 @@ export const buildString = (arr = []) => {
 } 
 
 export const requireAuth = async () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
   if (!isLoggedIn) {
     throw redirect('/login/?message=Please%2C+login+first');
   }
