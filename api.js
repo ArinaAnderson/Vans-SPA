@@ -80,13 +80,14 @@ export const loginUser = async (cred) => {
       password: cred.password,
       email: cred.email,
     });
+
     console.log('RESPONSE', res)
     const { data } = res;
     return data;
   } catch(e) {
     
     console.log('ERROR RESPONSE', e.response);
-    throw new Error(e.response.data.message, {cause: e.response});
+    throw new Error(e.response.data.message, { cause: e.response });
   }
 };
 
